@@ -12,7 +12,59 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="" />
+    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/.rustc_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/generic-array-ce96e3749e59763f/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/libc-04c2d31c4dc564b6/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/proc-macro2-f909308ef6bd7a91/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/syn-653aeca9989abb8d/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/typenum-49578ee72dc7eb7a/output-build-script-build-script-main" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/unicase-b791e1344ec82bc9/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/winapi-8ed864f2c1c7e814/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/winapi-a252fc756497871b/output-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/generic-array-ce96e3749e59763f/build_script_build-ce96e3749e59763f.1pgcgmj97z5ttgs0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/generic-array-ce96e3749e59763f/build_script_build-ce96e3749e59763f.build_script_build.68a4a9a2ff56cbd4-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/httparse-8d32d7c9793c2357/build_script_build-8d32d7c9793c2357.4q8ypwpf8ak4yv6q.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/httparse-8d32d7c9793c2357/build_script_build-8d32d7c9793c2357.build_script_build.d5bafcdb1ea73a4d-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/indexmap-6ac831f57936e3a3/build_script_build-6ac831f57936e3a3.build_script_build.70c550b018fa72a0-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/indexmap-6ac831f57936e3a3/build_script_build-6ac831f57936e3a3.noujtmtg8lczts1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/libc-04c2d31c4dc564b6/build_script_build-04c2d31c4dc564b6.2b184fbx9nkdx75h.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/libc-04c2d31c4dc564b6/build_script_build-04c2d31c4dc564b6.build_script_build.846b87a65c5f0a6e-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/libc-04c2d31c4dc564b6/build_script_build-04c2d31c4dc564b6.build_script_build.846b87a65c5f0a6e-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/memchr-6f92284ccddcc6ee/build_script_build-6f92284ccddcc6ee.3p2bhyiz0bz1v48k.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/memchr-6f92284ccddcc6ee/build_script_build-6f92284ccddcc6ee.build_script_build.58e3ead5fbdf847-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/memchr-6f92284ccddcc6ee/build_script_build-6f92284ccddcc6ee.build_script_build.58e3ead5fbdf847-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/proc-macro2-f909308ef6bd7a91/build_script_build-f909308ef6bd7a91.build_script_build.2bc402302d157728-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/proc-macro2-f909308ef6bd7a91/build_script_build-f909308ef6bd7a91.build_script_build.2bc402302d157728-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/proc-macro2-f909308ef6bd7a91/build_script_build-f909308ef6bd7a91.build_script_build.2bc402302d157728-cgu.2.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/proc-macro2-f909308ef6bd7a91/build_script_build-f909308ef6bd7a91.ude1ue0fcq71r7t.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/serde-270224676a172ae2/build_script_build-270224676a172ae2.build_script_build.125b6af422e0e42f-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/serde-270224676a172ae2/build_script_build-270224676a172ae2.zkj5znop3j9u4oq.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/syn-653aeca9989abb8d/build_script_build-653aeca9989abb8d.41va2kyrfbjyyf3i.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/syn-653aeca9989abb8d/build_script_build-653aeca9989abb8d.build_script_build.4910d13256e263c8-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/syn-653aeca9989abb8d/build_script_build-653aeca9989abb8d.build_script_build.4910d13256e263c8-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/typenum-49578ee72dc7eb7a/build_script_main-49578ee72dc7eb7a.4gpu5h1yww9qzy7x.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/typenum-49578ee72dc7eb7a/build_script_main-49578ee72dc7eb7a.build_script_main.d9f1d542c6fe7c0c-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/typenum-49578ee72dc7eb7a/build_script_main-49578ee72dc7eb7a.build_script_main.d9f1d542c6fe7c0c-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/typenum-49578ee72dc7eb7a/build_script_main-49578ee72dc7eb7a.build_script_main.d9f1d542c6fe7c0c-cgu.2.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/typenum-49578ee72dc7eb7a/build_script_main-49578ee72dc7eb7a.build_script_main.d9f1d542c6fe7c0c-cgu.3.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/unicase-b791e1344ec82bc9/build_script_build-b791e1344ec82bc9.build_script_build.78524397f71687c2-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/unicase-b791e1344ec82bc9/build_script_build-b791e1344ec82bc9.dpp4rpit0zdezvu.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-8ed864f2c1c7e814/build_script_build-8ed864f2c1c7e814.3xkz5xuopjr70f4u.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-8ed864f2c1c7e814/build_script_build-8ed864f2c1c7e814.build_script_build.ec763abc71e90ce0-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-8ed864f2c1c7e814/build_script_build-8ed864f2c1c7e814.build_script_build.ec763abc71e90ce0-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-8ed864f2c1c7e814/build_script_build-8ed864f2c1c7e814.build_script_build.ec763abc71e90ce0-cgu.2.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-8ed864f2c1c7e814/build_script_build-8ed864f2c1c7e814.build_script_build.ec763abc71e90ce0-cgu.3.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-8ed864f2c1c7e814/build_script_build-8ed864f2c1c7e814.build_script_build.ec763abc71e90ce0-cgu.4.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-a252fc756497871b/build_script_build-a252fc756497871b.4wx6v59ct6iclal.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-a252fc756497871b/build_script_build-a252fc756497871b.build_script_build.a633c1d010b32c2b-cgu.0.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-a252fc756497871b/build_script_build-a252fc756497871b.build_script_build.a633c1d010b32c2b-cgu.1.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-a252fc756497871b/build_script_build-a252fc756497871b.build_script_build.a633c1d010b32c2b-cgu.2.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-a252fc756497871b/build_script_build-a252fc756497871b.build_script_build.a633c1d010b32c2b-cgu.3.rcgu.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/build/winapi-a252fc756497871b/build_script_build-a252fc756497871b.build_script_build.a633c1d010b32c2b-cgu.4.rcgu.o" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +92,10 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
     "settings.editor.selected.configurable": "preferences.pluginManager",
@@ -76,7 +132,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1690195700787</updated>
-      <workItem from="1690195702567" duration="226000" />
+      <workItem from="1690195702567" duration="1559000" />
     </task>
     <servers />
   </component>
