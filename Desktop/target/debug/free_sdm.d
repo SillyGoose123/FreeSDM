@@ -1,0 +1,1 @@
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\free_sdm.exe: J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\src\commands.rs J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\src\main.rs

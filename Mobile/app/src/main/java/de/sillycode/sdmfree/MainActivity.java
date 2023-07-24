@@ -23,8 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
             new Thread(() -> {
                 if(!t.getText().toString().equals("") && !e.getText().toString().equals("") && req.connect(t.getText().toString(), e.getText().toString())) startActivity(new Intent(MainActivity.this, Dashboard.class));
-                else Snackbar.make(findViewById(R.id.ip), "Connection failed.", 800).show();
+                else {
+                    Snackbar.make(findViewById(R.id.ip), "Connection failed.", 800).show();
+                }
             }).start();
+
         });
 
         findViewById(R.id.clearBtn).setOnClickListener(v -> {

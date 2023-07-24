@@ -3,6 +3,7 @@ package de.sillycode.sdmfree;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -17,15 +18,17 @@ public class Requests {
     private OkHttpClient okHttpClient = null;
 
     private OkHttpClient getClient(){
-        if(okHttpClient == null)  okHttpClient = new OkHttpClient();
+        if(okHttpClient == null)  okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(500, TimeUnit.MILLISECONDS)
+                .build();
         return okHttpClient;
     }
 
     public boolean connect(String ip, String pin){
         //prepare
         OkHttpClient client = getClient();
-        url_base = "http://" + ip + ":1234";
-        Log.i("TAG", "connect: " + url_base);
+        url_base = "http://" + ip + ":8000";
+        Log.i("TAG", "connect: " + url_base + "/connect");
         auth_pin = pin;
 
         // build request
@@ -37,6 +40,7 @@ public class Requests {
         // send request
         try (Response response = client.newCall(request).execute()) {
             assert response.body() != null;
+            Log.d("TAG", "connect: " + response.body().string());
             if(response.body().string().contains("connected")) return true;
         } catch (IOException e) {
             Log.e("Err", e.toString());
@@ -50,7 +54,7 @@ public class Requests {
 
         // build request
         Request request = new Request.Builder()
-                .url(url_base + "/connect")
+                .url(url_base + "/command")
                 .addHeader("Authorization", auth_pin)
                 .post(RequestBody.create(
                         MediaType.parse("text/x-markdown"), command))

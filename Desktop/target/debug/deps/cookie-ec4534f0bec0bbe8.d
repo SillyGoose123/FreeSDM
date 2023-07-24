@@ -1,0 +1,11 @@
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\cookie-ec4534f0bec0bbe8.rmeta: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\builder.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\parse.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\jar.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\delta.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\draft.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\expiration.rs
+
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\cookie-ec4534f0bec0bbe8.d: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\builder.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\parse.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\jar.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\delta.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\draft.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\expiration.rs
+
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\lib.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\builder.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\parse.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\jar.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\delta.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\draft.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cookie-0.17.0\src\expiration.rs:

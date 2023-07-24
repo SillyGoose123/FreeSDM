@@ -1,0 +1,11 @@
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\uncased-3011d29d67e2d10b.rmeta: C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\serde.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\owned.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\borrowed.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\as_uncased.rs
+
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\libuncased-3011d29d67e2d10b.rlib: C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\serde.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\owned.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\borrowed.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\as_uncased.rs
+
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\uncased-3011d29d67e2d10b.d: C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\serde.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\owned.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\borrowed.rs C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\as_uncased.rs
+
+C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\lib.rs:
+C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\serde.rs:
+C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\owned.rs:
+C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\borrowed.rs:
+C:\Users\SillyGoose\.cargo\registry\src\github.com-1ecc6299db9ec823\uncased-0.9.9\src\as_uncased.rs:

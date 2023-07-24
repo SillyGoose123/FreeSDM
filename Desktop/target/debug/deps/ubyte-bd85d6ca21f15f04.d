@@ -1,0 +1,11 @@
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\ubyte-bd85d6ca21f15f04.rmeta: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\arithmetic.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\byte_unit.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\parse.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\ser_de.rs
+
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\libubyte-bd85d6ca21f15f04.rlib: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\arithmetic.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\byte_unit.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\parse.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\ser_de.rs
+
+J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\ubyte-bd85d6ca21f15f04.d: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\lib.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\arithmetic.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\byte_unit.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\parse.rs C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\ser_de.rs
+
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\lib.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\arithmetic.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\byte_unit.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\parse.rs:
+C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ubyte-0.10.3\src\ser_de.rs:
