@@ -1,0 +1,15 @@
+[default]
+address = "0.0.0.0"
+limits = { form = "64 kB", json = "1 MiB" }
+
+[debug]
+port = 8000
+address = "0.0.0.0"
+limits = { json = "10MiB" }
+log_level = "off" ## Should be debug
+
+## set only when compiled in release mode, i.e, `cargo build --release`
+[release]
+port = 8000
+ip_header = false
+log_level = "off"

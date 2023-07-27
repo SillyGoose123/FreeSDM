@@ -1,3 +1,5 @@
+use simulate::Key;
+
 pub fn execute(command:&str) -> bool {
     return match command {
         "play" => play(),
@@ -5,6 +7,7 @@ pub fn execute(command:&str) -> bool {
     }
 }
 
-fn play() -> bool{
-    return true;
+fn play() -> bool {
+    simulate::send(Key::MediaPlayPause).unwrap();
+    return false;
 }

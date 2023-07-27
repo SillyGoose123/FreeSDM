@@ -1,8 +1,13 @@
 package de.sillycode.sdmfree;
 
 import android.util.Log;
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -10,6 +15,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class Requests {
     private String url_base = "";
@@ -34,39 +40,44 @@ public class Requests {
         // build request
         Request request = new Request.Builder()
                 .url(url_base + "/connect")
-                .addHeader("Authorization", auth_pin)
                 .build();
 
         // send request
         try (Response response = client.newCall(request).execute()) {
-            assert response.body() != null;
-            Log.d("TAG", "connect: " + response.body().string());
-            if(response.body().string().contains("connected")) return true;
+            ResponseBody res = response.body();
+            assert res != null;
+
+            String resS = new String(res.bytes(), StandardCharsets.UTF_8);
+            Log.d("Data", "connect-content: " + resS);
+
+            return resS.contains("true");
         } catch (IOException e) {
-            Log.e("Err", e.toString());
+            Log.e("Err", e.toString() + "<= Test" + e.getStackTrace().toString());
         }
         return false;
     }
 
-    public boolean sendCommand(String command){
+    public int sendCommand(String command){
         //prepare
         OkHttpClient client = getClient();
-
+        Log.d("Debug", "sendCommand: " + command);
         // build request
         Request request = new Request.Builder()
                 .url(url_base + "/command")
-                .addHeader("Authorization", auth_pin)
-                .post(RequestBody.create(
-                        MediaType.parse("text/x-markdown"), command))
+                .post(RequestBody.create(command,
+                        MediaType.parse("text/plain")))
                 .build();
 
         // send request
         try (Response response = client.newCall(request).execute()) {
             assert response.body() != null;
-            if(response.body().string().contains("true")) return true;
-        } catch (IOException e) {
+            if(response.body().string().contains("true")) return 0;
+        } catch (Exception e) {
+            if (e.equals(SocketTimeoutException.class)) return 3;
             Log.e("Err", e.toString());
         }
-        return false;
+
+        return 1;
     }
+
 }

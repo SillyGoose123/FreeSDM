@@ -1,19 +1,18 @@
 mod commands;
 
+//imports
 #[macro_use]
 extern crate rocket;
 
 use std::error::Error;
 use rand::Rng;
 use std::string::ToString;
-use rocket::{Data, Request};
-use rocket::fairing::AdHoc;
-use rocket::figment::providers::Env;
-use rocket::response::stream::TextStream;
-use rocket::tokio::io::AsyncReadExt;
-use rocket::form::Form;
-use rocket::response::content::RawText;
+use rocket::http::hyper::body::Buf;
+use rocket::request::FromRequest;
+use local_ip_address::local_ip;
 
+
+//structs
 static mut PIN: Option<String> = None;
 
 #[get("/")]
@@ -23,6 +22,7 @@ fn index() -> &'static str {
 
 #[get("/connect")]
 fn connect() -> String {
+
     String::from("true")
 }
 
@@ -33,12 +33,11 @@ fn command(raw: String) -> String {
 
 #[launch]
 fn rocket() -> _ {
+    println!("Connection Ip: {:?}",  local_ip().unwrap());
     unsafe {
         PIN = Some(gen_random_pin());
-        println!("{}",&PIN.clone().unwrap() )
+        println!("Login Pin: {}", &PIN.clone().unwrap())
     }
-
-    std::env::set_var("ROCKET_ADDRESS", "0.0.0.0");
 
     rocket::build()
         .mount("/", routes![index, connect,command])

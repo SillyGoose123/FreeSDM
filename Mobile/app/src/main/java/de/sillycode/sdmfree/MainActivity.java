@@ -9,13 +9,11 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static Requests req = new Requests();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Requests req = new Requests();
 
         findViewById(R.id.connect).setOnClickListener(v -> {
             EditText t = findViewById(R.id.ip);
