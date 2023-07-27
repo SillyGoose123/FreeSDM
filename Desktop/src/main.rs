@@ -1,13 +1,15 @@
 mod commands;
+mod utils;
+mod connection;
 
 //imports
-use rand::Rng;
 use std::string::ToString;
 use actix_web::{get, App, HttpServer, HttpRequest, Responder, post};
-use actix_web::http::header::HeaderValue;
-use local_ip_address::local_ip;
-use colored::Colorize;
-use text_io::read;
+use console::style;
+
+use commands::execute;
+use utils::{gen_random_pin, ip_auth, check_auth, print_frame};
+use crate::connection::{ask_connect, print_box};
 
 //structs
 static mut PIN: Option<String> = None;
@@ -23,7 +25,7 @@ async fn index() -> impl Responder {
 async fn connected(req: HttpRequest) -> impl Responder  {
     let ip = req.connection_info().peer_addr().unwrap().to_string();
     if check_auth(req.headers().get("Authorization")) && ip_auth(&ip){
-        println!("Connected to {}", &ip);
+        print_box(&ip);
         return "true";
     }
     return "Wrong auth.";
@@ -32,37 +34,14 @@ async fn connected(req: HttpRequest) -> impl Responder  {
 #[get("/connect")]
 async fn connect(req: HttpRequest) -> impl Responder  {
     let authorized = check_auth(req.headers().get("Authorization"));
-    let ip: String = req.connection_info().peer_addr().unwrap().to_string();
     unsafe {
         if authorized {
-            if READING {
-                return "false";
-            }
-            READING = true;
-            println!("Wanna connect to {}? [Y,n] ", &ip);
-            let line: String = read!("{}\n");
-            if line.to_lowercase().contains("y") {
-                unsafe {
-                    if CLIENTS != None {
-                        CLIENTS = Some(String::from(format!("{};{}", CLIENTS.as_ref().unwrap(), ip)));
-                    } else {
-                        CLIENTS = Some(String::from(&ip));
-                    }
-                    READING = false;
-                }
-                return "true";
-            } else {
-                println!("Connection from {} denied.", &ip);
-                READING = false;
-                return "false";
-            }
-
+            return ask_connect(req.connection_info().peer_addr().unwrap()).to_string();
         } else {
-            println!("{}", format!("Access with Pin \"{}\" failed.", req.headers().get("Authorization").unwrap().to_str().unwrap()).red());
-            unsafe {
-                println!("Real Login Pin: {}", PIN.as_ref().unwrap().blue());
-            }
-            return "false";
+            println!("{}", style(format!("Access with Pin \"{}\" failed.", req.headers().get("Authorization").unwrap().to_str().unwrap())).red());
+            println!("Real Login Pin: {}", style(PIN.as_ref().unwrap()).cyan());
+
+            return "false".to_string();
         }
     }
 
@@ -72,9 +51,19 @@ async fn connect(req: HttpRequest) -> impl Responder  {
 async fn command(raw: actix_web::web::Bytes, req: HttpRequest) -> impl Responder  {
     let ip: String = req.connection_info().peer_addr().unwrap().to_string();
     if check_auth(req.headers().get("Authorization"))  && ip_auth(&ip.to_string()) {
-        return "true";
+        let command = std::str::from_utf8(&raw).unwrap();
+
+        let worked: bool = execute(command);
+        if worked {
+            println!("command: {} from {}", style(command).yellow(), style(&ip).green());
+            return "true";
+        }
+        println!("command: {} from {} failed.", style(command).red(), style(&ip).green());
+
+        return "false";
+
     } else {
-        println!("Command with wrong auth from IP:{}",  &ip);
+        println!("Command with wrong auth from IP: {}",  style(&ip).red());
         return "Wrong auth.";
     }
 }
@@ -85,36 +74,7 @@ async fn main() -> std::io::Result<()> {
         PIN = Some(gen_random_pin(5));
     }
 
-    //nice launch box
-    let ip = local_ip().unwrap().to_string();
-    let mut frame = String::new();
-    let mut space = String::new();
-
-    for _ in 0..ip.len() + 19{
-        frame.push('-');
-    }
-
-    for _ in 0..ip.len() {
-        space.push(' ');
-    }
-
-    println!("{}", frame);
-    println!("| Connection Ip: {} |",  ip.green());
-
-    unsafe {
-        if std::env::args().last().unwrap() == "Test".to_string() {
-            // Case of TEST
-            PIN = Some("0000".to_string());
-            println!("|{}{}|", " Debug MODE".red(), frame.replace("-", " ").get(0..frame.len() - 13).unwrap());
-        } else {
-            println!("| Login Pin: {} {}|", PIN.as_ref().unwrap().blue(), space);
-        }
-
-    }
-
-
-
-    println!("{}", frame);
+    print_frame();
 
     HttpServer::new(|| {
         App::new()
@@ -127,37 +87,3 @@ async fn main() -> std::io::Result<()> {
         .run()
         .await
 }
-
-
-
-fn gen_random_pin(i: i32) ->  String {
-    let mut string: String = String::new();
-
-    for _ in 0..i {
-        string = string + rand::thread_rng().gen_range(0..10).to_string().as_str();
-    }
-
-    return string;
-
-}
-
-fn check_auth(token:Option<&HeaderValue> ) -> bool{
-    let auth: &str = token.unwrap().to_str().unwrap().split(" ").last().unwrap();
-    unsafe {
-        return PIN.as_ref().map(|inner_str| inner_str.as_str() == auth).unwrap_or(false);
-    }
-}
-
-fn ip_auth(ip: &String) -> bool {
-    unsafe {
-        let clients = CLIENTS.as_ref().unwrap().split(";");
-        for cli in clients {
-            if cli == ip.as_str() {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-

@@ -12,15 +12,19 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="connection now works but timeout is missing">
+    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="ip verify works now">
+      <change afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/output-bin-free_sdm" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/output-bin-free_sdm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/.rustc_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/output-bin-free_sdm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/debug/free_sdm.exe" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/free_sdm.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/debug/free_sdm.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/free_sdm.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/java/de/sillycode/sdmfree/Requests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/java/de/sillycode/sdmfree/Requests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,27 +65,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "J:/Coding/Projekts/Other/FreeStremDeckMobile/FreeSDM/Desktop",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
-    "settings.editor.selected.configurable": "Errors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;J:/Coding/Projekts/Other/FreeStremDeckMobile/FreeSDM/Desktop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Cargo.Test">
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command" nameIsGenerated="true">
       <option name="command" value="run" />
@@ -143,7 +147,8 @@
       <workItem from="1690440834038" duration="146000" />
       <workItem from="1690441008359" duration="57000" />
       <workItem from="1690441075115" duration="33000" />
-      <workItem from="1690441118837" duration="29772000" />
+      <workItem from="1690441118837" duration="37319000" />
+      <workItem from="1690486413335" duration="380000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
@@ -169,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690473273154</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ip verify works now">
+      <option name="closed" value="true" />
+      <created>1690478317752</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1690478317752</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,7 +192,8 @@
     <MESSAGE value="basic app + basic rust api with rocket.rs" />
     <MESSAGE value="remove build" />
     <MESSAGE value="connection now works but timeout is missing" />
-    <option name="LAST_COMMIT_MESSAGE" value="connection now works but timeout is missing" />
+    <MESSAGE value="ip verify works now" />
+    <option name="LAST_COMMIT_MESSAGE" value="ip verify works now" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

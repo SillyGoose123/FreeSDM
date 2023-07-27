@@ -9,5 +9,5 @@ pub fn execute(command:&str) -> bool {
 
 fn play() -> bool {
     simulate::send(Key::MediaPlayPause).unwrap();
-    return false;
+    return true;
 }
