@@ -48,7 +48,20 @@ public class Requests {
             String resS = new String(res.bytes(), StandardCharsets.UTF_8);
             Log.d("Data", "connect-content: " + resS);
 
-            return resS.contains("true");
+            if(!resS.contains("true")) return false;
+
+            Request req2 = new Request.Builder()
+                    .url(url_base + "/connected")
+                    .addHeader("Authorization", auth_pin)
+                    .build();
+
+            try (Response res2 = client.newCall(req2).execute()) {
+                ResponseBody resB = res2.body();
+                assert resB != null;
+                String resBS = new String(resB.bytes(), StandardCharsets.UTF_8);
+                return resBS.contains("true");
+            }
+
         } catch (IOException e) {
             Log.e("Err", e.toString() + "<= Test" + e.getStackTrace().toString());
         }

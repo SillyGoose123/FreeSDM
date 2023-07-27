@@ -3,11 +3,7 @@ mod commands;
 //imports
 use rand::Rng;
 use std::string::ToString;
-use std::thread;
-use std::thread::Thread;
-use std::time::Duration;
 use actix_web::{get, App, HttpServer, HttpRequest, Responder, post};
-use actix_web::cookie::time::macros::time;
 use actix_web::http::header::HeaderValue;
 use local_ip_address::local_ip;
 use colored::Colorize;
@@ -21,6 +17,16 @@ static mut READING: bool = false;
 #[get("/")]
 async fn index() -> impl Responder {
     "Hello world!"
+}
+
+#[get("/connected")]
+async fn connected(req: HttpRequest) -> impl Responder  {
+    let ip = req.connection_info().peer_addr().unwrap().to_string();
+    if check_auth(req.headers().get("Authorization")) && ip_auth(&ip){
+        println!("Connected to {}", &ip);
+        return "true";
+    }
+    return "Wrong auth.";
 }
 
 #[get("/connect")]
@@ -37,7 +43,6 @@ async fn connect(req: HttpRequest) -> impl Responder  {
             let line: String = read!("{}\n");
             if line.to_lowercase().contains("y") {
                 unsafe {
-                    println!("Connected to {}", &ip);
                     if CLIENTS != None {
                         CLIENTS = Some(String::from(format!("{};{}", CLIENTS.as_ref().unwrap(), ip)));
                     } else {
@@ -65,10 +70,11 @@ async fn connect(req: HttpRequest) -> impl Responder  {
 
 #[post("/command")]
 async fn command(raw: actix_web::web::Bytes, req: HttpRequest) -> impl Responder  {
-    if check_auth(req.headers().get("Authorization")) {
+    let ip: String = req.connection_info().peer_addr().unwrap().to_string();
+    if check_auth(req.headers().get("Authorization"))  && ip_auth(&ip.to_string()) {
         return "true";
     } else {
-        println!("Command with wrong auth from IP:{}",  req.connection_info().peer_addr().unwrap());
+        println!("Command with wrong auth from IP:{}",  &ip);
         return "Wrong auth.";
     }
 }
@@ -114,6 +120,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(index)
             .service(connect)
+            .service(connected)
             .service(command)
     })
         .bind(("0.0.0.0", 8000))?
@@ -139,5 +146,18 @@ fn check_auth(token:Option<&HeaderValue> ) -> bool{
     unsafe {
         return PIN.as_ref().map(|inner_str| inner_str.as_str() == auth).unwrap_or(false);
     }
+}
+
+fn ip_auth(ip: &String) -> bool {
+    unsafe {
+        let clients = CLIENTS.as_ref().unwrap().split(";");
+        for cli in clients {
+            if cli == ip.as_str() {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
