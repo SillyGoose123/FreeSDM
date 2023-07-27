@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,13 +19,16 @@ public class Dashboard extends AppCompatActivity {
 
     private View.OnClickListener click = v -> {
         Button b = findViewById(v.getId());
+        String command = b.getText().toString();
         new Thread(() -> {
-            int commandCode = req.sendCommand(b.getText().toString().toLowerCase());
-            if(commandCode == 3){
+            int commandCode = req.sendCommand(command.toLowerCase());
+            if(commandCode == 0) Log.d("Normal", "Command Code: " + commandCode);
+            else Log.e("Normal", "Command Code: " + commandCode);
+            if(commandCode == 2){
                 startActivity(new Intent(Dashboard.this, MainActivity.class));
-                Snackbar.make(findViewById(R.id.connect), "Connection lost." , 800).show();
-            } else if(commandCode == 2) {
-                Snackbar.make(v, "Command " + b +" Failed." , 800).show();
+                MainActivity.err = "Connection Lost.";
+            } else if(commandCode == 1) {
+                Snackbar.make(v, "Command " + command +" Failed." , 800).show();
             }
         }).start();
 

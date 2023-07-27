@@ -24,9 +24,7 @@ public class Requests {
     private OkHttpClient okHttpClient = null;
 
     private OkHttpClient getClient(){
-        if(okHttpClient == null)  okHttpClient = new OkHttpClient().newBuilder()
-                .connectTimeout(500, TimeUnit.MILLISECONDS)
-                .build();
+        if(okHttpClient == null)  okHttpClient = new OkHttpClient().newBuilder().build();
         return okHttpClient;
     }
 
@@ -40,13 +38,13 @@ public class Requests {
         // build request
         Request request = new Request.Builder()
                 .url(url_base + "/connect")
+                .addHeader("Authorization", auth_pin)
                 .build();
 
         // send request
         try (Response response = client.newCall(request).execute()) {
             ResponseBody res = response.body();
             assert res != null;
-
             String resS = new String(res.bytes(), StandardCharsets.UTF_8);
             Log.d("Data", "connect-content: " + resS);
 
@@ -64,16 +62,20 @@ public class Requests {
         // build request
         Request request = new Request.Builder()
                 .url(url_base + "/command")
+                .addHeader("Authorization", auth_pin)
                 .post(RequestBody.create(command,
                         MediaType.parse("text/plain")))
                 .build();
 
         // send request
         try (Response response = client.newCall(request).execute()) {
-            assert response.body() != null;
-            if(response.body().string().contains("true")) return 0;
+            ResponseBody res = response.body();
+            assert res != null;
+            String resS = new String(res.bytes(), StandardCharsets.UTF_8);
+            if(resS.equals("true")) return 0;
+            else if (resS.equals("Wrong auth.")) return 2;
         } catch (Exception e) {
-            if (e.equals(SocketTimeoutException.class)) return 3;
+            if (e.toString().contains("java.net.SocketTimeoutException")) return 2;
             Log.e("Err", e.toString());
         }
 
