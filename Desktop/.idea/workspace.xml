@@ -12,19 +12,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="better design and code clean up">
-      <change afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/drawable/baseline_skip_next_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/drawable/baseline_skip_previous_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/drawable/play_pause_48px.xml" afterDir="false" />
+    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="better app and next / previous + reconnect">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/connection.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/debug/free_sdm.exe" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/free_sdm.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/debug/free_sdm.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/free_sdm.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/java/de/sillycode/sdmfree/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/java/de/sillycode/sdmfree/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/res/layout/activity_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/layout/activity_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/.rustc_info.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +76,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Cargo.Test">
+  <component name="RunManager" selected="Cargo.Run">
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command" nameIsGenerated="true">
       <option name="command" value="run" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -149,7 +139,7 @@
       <workItem from="1690441075115" duration="33000" />
       <workItem from="1690441118837" duration="37319000" />
       <workItem from="1690486413335" duration="4179000" />
-      <workItem from="1690538948230" duration="1461000" />
+      <workItem from="1690538948230" duration="2133000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
@@ -191,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690487579600</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="better app and next / previous + reconnect">
+      <option name="closed" value="true" />
+      <created>1690540658194</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1690540658194</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +201,8 @@
     <MESSAGE value="connection now works but timeout is missing" />
     <MESSAGE value="ip verify works now" />
     <MESSAGE value="better design and code clean up" />
-    <option name="LAST_COMMIT_MESSAGE" value="better design and code clean up" />
+    <MESSAGE value="better app and next / previous + reconnect" />
+    <option name="LAST_COMMIT_MESSAGE" value="better app and next / previous + reconnect" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
