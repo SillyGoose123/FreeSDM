@@ -7,16 +7,48 @@
     tools:context=".Dashboard">
 
     <Button
-        android:id="@+id/playBtn"
-        android:layout_width="144dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="133dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="133dp"
-        android:text="Play"
+        android:id="@+id/preBtn"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:foreground="@drawable/baseline_skip_previous_24"
+        android:text="media_back"
         android:textColor="#212121"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:foreground="@drawable/baseline_skip_next_24"
+        android:text="media_next"
+        android:textColor="#212121"
+        android:textSize="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/playBtn"
+        android:layout_width="134dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="20dp"
+        android:foreground="@drawable/play_pause_48px"
+        android:text="Play"
+        android:textColor="#212121"
+        android:textSize="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/nextBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/preBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

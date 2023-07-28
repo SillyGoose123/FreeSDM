@@ -2,7 +2,7 @@ use actix_web::http::header::HeaderValue;
 use console::style;
 use local_ip_address::local_ip;
 use rand::Rng;
-use crate::{CLIENTS, PIN};
+use crate::{CLIENTS, IP_AUTH, PIN};
 
 pub fn gen_random_pin(i: i32) ->  String {
     let mut string: String = String::new();
@@ -24,6 +24,7 @@ pub fn check_auth(token:Option<&HeaderValue> ) -> bool{
 
 pub fn ip_auth(ip: &String) -> bool {
     unsafe {
+        if !IP_AUTH { return true;}
         if CLIENTS == None {
             return false;
         }
@@ -38,7 +39,7 @@ pub fn ip_auth(ip: &String) -> bool {
     return false;
 }
 
-pub fn print_frame(){
+pub unsafe fn print_frame(debug: bool){
     //nice launch box
     let ip = local_ip().unwrap().to_string();
     let mut frame = String::new();
@@ -59,16 +60,11 @@ pub fn print_frame(){
     println!("{}", frame);
     println!("| Connection Ip: {} |",  style(ip).green());
 
-    unsafe {
-        if std::env::args().last().unwrap() == "Test".to_string() {
-            // Case of TEST
-            PIN = Some("0000".to_string());
-            println!("|{}{}|", style(" Debug MODE").red(), frame.replace("-", " ").get(0..frame.len() - 13).unwrap());
-        } else {
-            println!("| Login Pin: {}{}|", style(PIN.as_ref().unwrap()).cyan(), space);
-        }
-
+    if debug {
+        println!("|{}{}|", style(" Debug MODE").red(), frame.replace("-", " ").get(0..frame.len() - 13).unwrap());
+    } else {
+        println!("| Login Pin: {}{}|", style(PIN.as_ref().unwrap()).cyan(), space);
     }
 
-    println!("{}\n", frame);
+    println!("{}", frame);
 }

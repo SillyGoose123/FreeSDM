@@ -15,6 +15,7 @@ use crate::connection::{ask_connect, print_box};
 static mut PIN: Option<String> = None;
 static mut CLIENTS: Option<String> = None;
 static mut READING: bool = false;
+static mut IP_AUTH: bool = true;
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -72,9 +73,16 @@ async fn command(raw: actix_web::web::Bytes, req: HttpRequest) -> impl Responder
 async fn main() -> std::io::Result<()> {
     unsafe {
         PIN = Some(gen_random_pin(5));
+
+        let debug=  std::env::args().last().unwrap() == "Test".to_string();
+        if debug {
+            PIN = Some("0000".to_string());
+        }
+
+        print_frame(debug);
+
     }
 
-    print_frame();
 
     HttpServer::new(|| {
         App::new()

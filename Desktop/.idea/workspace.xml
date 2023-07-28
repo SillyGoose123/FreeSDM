@@ -12,19 +12,19 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="ip verify works now">
-      <change afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
+    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="better design and code clean up">
+      <change afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/drawable/baseline_skip_next_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/drawable/baseline_skip_previous_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/drawable/play_pause_48px.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connection.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/.rustc_info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/bin-free_sdm.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/free_sdm-a6b3c20aead7b18b/output-bin-free_sdm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/debug/free_sdm.exe" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/free_sdm.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/debug/free_sdm.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/free_sdm.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/java/de/sillycode/sdmfree/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/java/de/sillycode/sdmfree/Dashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Mobile/app/src/main/res/layout/activity_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Mobile/app/src/main/res/layout/activity_dashboard.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,10 +53,10 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: -1
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
   <component name="ProjectId" id="2T11J9TnpOUCOHJ383GWy3DJZnN" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -148,7 +148,8 @@
       <workItem from="1690441008359" duration="57000" />
       <workItem from="1690441075115" duration="33000" />
       <workItem from="1690441118837" duration="37319000" />
-      <workItem from="1690486413335" duration="380000" />
+      <workItem from="1690486413335" duration="4179000" />
+      <workItem from="1690538948230" duration="1461000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
@@ -182,7 +183,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690478317752</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="better design and code clean up">
+      <option name="closed" value="true" />
+      <created>1690487579600</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1690487579600</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,7 +202,8 @@
     <MESSAGE value="remove build" />
     <MESSAGE value="connection now works but timeout is missing" />
     <MESSAGE value="ip verify works now" />
-    <option name="LAST_COMMIT_MESSAGE" value="ip verify works now" />
+    <MESSAGE value="better design and code clean up" />
+    <option name="LAST_COMMIT_MESSAGE" value="better design and code clean up" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
