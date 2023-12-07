@@ -1,7 +1,0 @@
-J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\futures_io-ed8d349e4301731c.rmeta: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\futures-io-0.3.28\src\lib.rs
-
-J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\libfutures_io-ed8d349e4301731c.rlib: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\futures-io-0.3.28\src\lib.rs
-
-J:\Coding\Projekts\Other\FreeStremDeckMobile\FreeSDM\Desktop\target\debug\deps\futures_io-ed8d349e4301731c.d: C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\futures-io-0.3.28\src\lib.rs
-
-C:\Users\SillyGoose\.cargo\registry\src\index.crates.io-6f17d22bba15001f\futures-io-0.3.28\src\lib.rs:
