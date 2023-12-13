@@ -15,10 +15,14 @@ pub fn gen_random_pin(i: i32) ->  String {
 
 }
 
-pub fn check_auth(token:Option<&HeaderValue> ) -> bool{
-    let auth: &str = token.unwrap().to_str().unwrap().split(" ").last().unwrap();
-    unsafe {
-        return PIN.as_ref().map(|inner_str| inner_str.as_str() == auth).unwrap_or(false);
+pub fn check_auth(token:Option<&HeaderValue> ) -> bool {
+    return match token.unwrap().to_str().unwrap().split(" ").last() {
+        None => false,
+        Some(token) => {
+            unsafe {
+                return PIN.as_ref().map(|inner_str| inner_str.as_str() == token).unwrap_or(false);
+            }
+        }
     }
 }
 
@@ -45,11 +49,11 @@ pub unsafe fn print_frame(debug: bool){
     let mut frame = String::new();
     let mut space = String::new();
 
-    for _ in 0..ip.len() + 19{
+    for _ in 0..ip.len() + 19 + 5 {
         frame.push('-');
     }
 
-    for _ in 0..ip.len() {
+    for _ in 0..ip.len() + 5 {
         space.push(' ');
     }
     let app_name = format!("FreeSDM");
@@ -58,7 +62,7 @@ pub unsafe fn print_frame(debug: bool){
     println!("{}{}", frame.replace("-", " ").get(0..frame.len() / 2 - app_name.len() / 2).unwrap(), style(app_name).cyan().bold());
 
     println!("{}", frame);
-    println!("| Connection Ip: {} |",  style(ip).green());
+    println!("| Connection Ip: {}:{} |",  style(ip).green(), style("8000").blue());
 
     if debug {
         println!("|{}{}|", style(" Debug MODE").red(), frame.replace("-", " ").get(0..frame.len() - 13).unwrap());
