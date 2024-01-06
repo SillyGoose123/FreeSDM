@@ -1,5 +1,5 @@
-import 'package:FreeSDM/connection.dart';
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "connection.dart";
 
 void main() {
   runApp(const MyApp());

@@ -1,6 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:freesdm/commandPage.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class Connections extends StatefulWidget {
   const Connections({super.key});
@@ -105,14 +106,12 @@ class _ConnectionsState extends State<Connections> {
                                 trailing: IconButton(
                                     onPressed: () =>
                                         setState(() {
-                                          _connections
-                                              .remove(_connections[i ~/ 2]);
-                                          _prefs.setStringList(
-                                              "connections", _connections);
+                                          _connections.remove(_connections[i ~/ 2]);
+                                          _prefs.setStringList("connections", _connections);
                                         }),
                                     icon: const Icon(Icons.delete)),
                                 onTap: () {
-                                  //Navigator.pop(context, _connections[i ~/ 2]);
+                                  Navigator.pop(context, MaterialPageRoute(builder: (context) => CommandPage(ip: _connections[i ~/ 2], pin: _pinController.text)));
                                 });
                           }
 
