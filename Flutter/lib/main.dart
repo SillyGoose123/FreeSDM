@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:FreeSDM/connection.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,20 +13,39 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "FreeSDM",
-        home: Scaffold(
-            backgroundColor: const Color.fromRGBO(32, 32, 32, 100),
-            body: Column(
-              children: [
-                
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromRGBO(89, 149, 192, 100)),
-                  ),
-                  onPressed: () { },
-                  child: const Text('Connect'),
-                )
-              ],
-            )));
+        theme: ThemeData(
+            useMaterial3: true,
+
+            // Define the default brightness and colors.
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blueAccent,
+              background: Colors.white10,
+              brightness: Brightness.dark,
+            ),
+            drawerTheme: const DrawerThemeData(backgroundColor: Colors.white10),
+            navigationBarTheme: const NavigationBarThemeData(
+              backgroundColor: Colors.white10,
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              indicatorColor: Colors.blueAccent,
+            ),
+            textTheme: const TextTheme(
+              displaySmall: TextStyle(
+                fontSize: 72,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+              displayMedium: TextStyle(
+                fontSize: 72,
+                fontWeight: FontWeight.bold,
+              ),
+              displayLarge: TextStyle(
+                fontSize: 72,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+        home: const Scaffold(
+          body: Connections(),
+        ));
   }
 }
