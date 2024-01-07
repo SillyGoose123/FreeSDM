@@ -1,8 +1,7 @@
 import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:freesdm/commandPage.dart";
+import "package:freesdm/command_page.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 class Connections extends StatefulWidget {
@@ -22,13 +21,13 @@ class _ConnectionsState extends State<Connections> {
   var _pinSeen = false;
   final _focusNode = FocusNode();
 
-  var _prefs;
+   SharedPreferences? _prefs;
 
   _loadData() async {
     if (_prefs != null) return;
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _prefs.getStringList("connections")?.forEach((element) {
+      _prefs?.getStringList("connections")?.forEach((element) {
         _connections.add(element);
       });
     });
@@ -75,7 +74,7 @@ class _ConnectionsState extends State<Connections> {
                         return null;
                       }
 
-                      if (!RegExp(r"^[0-9]*$").hasMatch(value!)) {
+                      if (!RegExp(r"^[0-9]*$").hasMatch(value)) {
                         return "Not valid pin";
                       }
 
@@ -84,7 +83,7 @@ class _ConnectionsState extends State<Connections> {
                     keyboardType: TextInputType.number,
                   ))),
           const Center(
-            child: Text("Connection addreses:",
+            child: Text("Connection addresses:",
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -108,61 +107,27 @@ class _ConnectionsState extends State<Connections> {
                                   onPressed: () => setState(() {
                                         _connections
                                             .remove(_connections[i ~/ 2]);
-                                        _prefs.setStringList(
+                                        _prefs?.setStringList(
                                             "connections", _connections);
                                       }),
                                   icon: const Icon(Icons.delete)),
                               onTap: () {
-                                if (!_formKeyPin.currentState!.validate() ||
-                                    _pinController.text.isEmpty) {
-
-                                    final PersistentBottomSheetController controller = showBottomSheet(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          height: 100,
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                const Center(
-                                                  child: Padding(
-                                                      padding: EdgeInsets.only(left: 16),
-                                                      child: Text(
-                                                        'Please enter a valid pin.',
-                                                        style: TextStyle(
-                                                            fontSize: 24,
-                                                            fontWeight: FontWeight.bold,
-                                                            color: Colors.redAccent
-                                                        )
-                                                    )
-                                                  )
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: IconButton(
-                                                  onPressed: () => Navigator.pop(context),
-                                                  icon: const Icon(Icons.close),
-                                                )
-                                                ),
-                                              ],
-                                            )
-                                        );
-                                      });
-
-                                  Timer(const Duration(seconds: 2), () {
-                                    controller.close();
-                                  });
+                                if (!_formKeyPin.currentState!.validate() || _pinController.text.isEmpty) {
+                                  showInfo("Pin is not valid.");
                                   return;
                                 }
 
-                                Navigator.pop(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CommandPage(
-                                            ip: _connections[i ~/ 2],
-                                            pin: _pinController.text)));
+                                        builder: (context) => Scaffold(
+                                            body: CommandPage(
+                                              ip: _connections[i ~/ 2],
+                                              pin: _pinController.text,
+                                            )
+                                        )
+                                    )
+                                );
                               });
                         }
 
@@ -188,7 +153,7 @@ class _ConnectionsState extends State<Connections> {
                                     setState(() {
                                       _connections.add(_textController.text);
                                       _textController.clear();
-                                      _prefs.setStringList(
+                                      _prefs?.setStringList(
                                           "connections", _connections);
                                     });
                                   },
@@ -199,7 +164,7 @@ class _ConnectionsState extends State<Connections> {
 
                                     if (!RegExp(
                                             r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$")
-                                        .hasMatch(value!)) {
+                                        .hasMatch(value)) {
                                       return "Not valid ip address";
                                     }
 
@@ -215,6 +180,47 @@ class _ConnectionsState extends State<Connections> {
                       })))
         ]));
   }
+
+  showInfo(String text) {
+      final PersistentBottomSheetController controller = showBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return SizedBox(
+                height: 100,
+                child: Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                     Center(
+                        child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Text(
+                                text,
+                                style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.redAccent
+                                )
+                            )
+                        )
+                    ),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.close),
+                        )
+                    ),
+                  ],
+                )
+            );
+          });
+
+      Timer(const Duration(seconds: 2), () {
+        controller.close();
+      });
+    }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
