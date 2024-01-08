@@ -1,10 +1,8 @@
-
-pub fn send_key(command:&str) -> bool {
+pub fn send_string(command:&str) -> bool {
     println!("{}", command);
-    let input: Vec<&str> = command.split("\n").collect();
 
-    println!("input : {}", input[0]);
-
-    let pressed = true;
-    pressed
+    match simulate::type_str("Hello, world!") {
+        Ok(_) => true,
+        Err(_) => false
+    }
 }

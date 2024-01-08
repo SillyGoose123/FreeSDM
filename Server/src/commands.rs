@@ -1,27 +1,18 @@
+use console::style;
 use simulate::Key;
 
-pub fn execute(command:&str) -> bool {
-    return match command {
-        "play" => play(),
-        "media_next" => media_next(),
-        "media_back" => media_back(),
-        _ => { false }
+pub fn execute(command:&str, ip: &str) -> bool {
+     match command {
+        "play" => {simulate::send(Key::MediaPlayPause).unwrap();},
+        "media_next" => { simulate::send(Key::MediaNextTrack).unwrap() },
+        "media_back" => { simulate::send(Key::MediaPreviousTrack).unwrap() },
+        _ => {
+            println!("command: {} from {} failed.", style(command).red(), style(&ip).green());
+            return false;
+        }
     }
-}
 
-fn play() -> bool {
-    simulate::send(Key::MediaPlayPause).unwrap();
-    return true;
-}
-
-
-fn media_next() -> bool{
-    simulate::send(Key::MediaNextTrack).unwrap();
-    return true;
-}
-
-fn media_back() -> bool{
-    simulate::send(Key::MediaPreviousTrack).unwrap();
+    println!("command: {} from {}", style(command).yellow(), style(&ip).green());
     return true;
 }
 
