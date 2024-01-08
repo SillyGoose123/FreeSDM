@@ -212,8 +212,6 @@ class _ConnectionsState extends State<Connections> {
   }
 
   Future<void> _establishConnection(String connection, String pin) async {
-    String text = "Establishing connection";
-
     //cancelable connection
     var client = http.Client();
 
@@ -228,14 +226,15 @@ class _ConnectionsState extends State<Connections> {
               child: Container(
                   color: Colors.black.withOpacity(0.65),
                   child: Column(children: [
-                    Center(
+                    const Center(
                         child: Padding(
-                            padding: const EdgeInsets.only(left: 16, top: 16),
-                            child: Text(text,
-                                style: const TextStyle(
+                            padding: EdgeInsets.only(left: 16, top: 16),
+                            child: Text(
+                                "Establishing connection:",
+                                style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.redAccent)))),
+                                    color: Colors.white)))),
                     LoadingAnimationWidget.prograssiveDots(
                         color: Colors.white,
                         size: MediaQuery.of(context).size.width / 2),
@@ -264,19 +263,21 @@ class _ConnectionsState extends State<Connections> {
           await http.Response.fromStream(await client.send(request));
       if (response.statusCode == 200) {
         if (response.body.contains("false")) {
-          Navigator.pop(dialogContext);
+          if(dialogContext.mounted) Navigator.pop(dialogContext);
           showInfo("Invalid pin.");
           client.close();
           return;
         }
 
-        Navigator.pop(dialogContext);
+        if(dialogContext.mounted) Navigator.pop(dialogContext);
 
-        Navigator.push(
+        if(context.mounted) {
+          Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
                     CommandPage(ip: connection, pin: pin)));
+        }
 
         client.close();
         return;
@@ -284,8 +285,8 @@ class _ConnectionsState extends State<Connections> {
 
       throw Exception("Response code: ${response.statusCode}");
     } catch (e) {
-      Navigator.pop(dialogContext);
-      showInfo("Error: $e");
+      if(dialogContext.mounted) Navigator.pop(dialogContext);
+      showInfo("Connection failed.");
       client.close();
     }
   }

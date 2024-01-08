@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:freesdm/freesdm_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -80,7 +79,10 @@ class CommandPageState extends State<CommandPage> {
 
   _checkConnection() async {
     final response = await makeReq(widget.ip, "/checkConnection");
-    if(response.statusCode != 200) {
+    if(response.statusCode == 200) {
+      Timer(const Duration(seconds: 1), () {
+        _checkConnection();
+      });
       return;
     }
 
