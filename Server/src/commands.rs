@@ -1,27 +1,14 @@
 use simulate::Key;
 
 pub fn execute(command:&str) -> bool {
-    return match command {
-        "play" => play(),
-        "media_next" => media_next(),
-        "media_back" => media_back(),
-        _ => { false }
+    match command {
+        "play" => simulate::send(Key::MediaPlayPause).unwrap(),
+        "media_next" => simulate::send(Key::MediaNextTrack).unwrap(),
+        "media_back" => simulate::send(Key::MediaPreviousTrack).unwrap(),
+        "next" => simulate::send(Key::Right).unwrap(),
+        "back" => simulate::send(Key::Left).unwrap(),
+        _ => { return false }
     }
-}
 
-fn play() -> bool {
-    simulate::send(Key::MediaPlayPause).unwrap();
     return true;
 }
-
-
-fn media_next() -> bool{
-    simulate::send(Key::MediaNextTrack).unwrap();
-    return true;
-}
-
-fn media_back() -> bool{
-    simulate::send(Key::MediaPreviousTrack).unwrap();
-    return true;
-}
-

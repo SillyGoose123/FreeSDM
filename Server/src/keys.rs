@@ -6,5 +6,6 @@ pub fn send_key(command:&str) -> bool {
     println!("input : {}", input[0]);
 
     let pressed = true;
+
     pressed
 }

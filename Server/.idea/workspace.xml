@@ -13,12 +13,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="better app and next / previous + reconnect">
-      <change afterPath="$PROJECT_DIR$/../Mobile/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flutter/lib/connection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/connection.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/keys.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/keys.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

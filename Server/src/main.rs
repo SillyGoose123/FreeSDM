@@ -28,7 +28,6 @@ async fn index() -> impl Responder {
 async fn connected(req: HttpRequest) -> impl Responder  {
     let ip = req.connection_info().peer_addr().unwrap().to_string();
     if check_auth(req.headers().get("Authorization")) && ip_auth(&ip){
-        print_box(&ip);
         return "true";
     }
     return "Wrong auth.";

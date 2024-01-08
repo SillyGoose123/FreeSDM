@@ -263,10 +263,7 @@ class _ConnectionsState extends State<Connections> {
           await http.Response.fromStream(await client.send(request));
       if (response.statusCode == 200) {
         if (response.body.contains("false")) {
-          if(dialogContext.mounted) Navigator.pop(dialogContext);
-          showInfo("Invalid pin.");
-          client.close();
-          return;
+          throw Exception("Response denied.");
         }
 
         if(dialogContext.mounted) Navigator.pop(dialogContext);
@@ -283,7 +280,7 @@ class _ConnectionsState extends State<Connections> {
         return;
       }
 
-      throw Exception("Response code: ${response.statusCode}");
+      throw Exception("Response failed with code: ${response.statusCode}");
     } catch (e) {
       if(dialogContext.mounted) Navigator.pop(dialogContext);
       showInfo("Connection failed.");

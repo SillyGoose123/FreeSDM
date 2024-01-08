@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:freesdm/freesdm_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -64,6 +65,13 @@ class CommandPageState extends State<CommandPage> {
     switch (index) {
       case 1:
         return _buildPowerPointTab();
+
+      case 2:
+        return _buildNetflix();
+
+      case 3:
+        return _buildYouTube();
+
       default:
         return _buildStandard();
     }
@@ -74,12 +82,46 @@ class CommandPageState extends State<CommandPage> {
   }
 
   Widget _buildPowerPointTab() {
-    return const Text("PowerPoint");
+    return Padding(padding: EdgeInsets.only(top: 5), child: Row(
+
+      children: [
+        IconButton(onPressed: () {
+        sendCommand("back");
+      }, icon: const Icon(Icons.arrow_back_ios),
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(top: 50, bottom: 50, left: 50, right: 50)),
+          iconSize: MaterialStateProperty.all<double>(50),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+        ),),
+        const Spacer(),
+        IconButton(onPressed: () {
+          sendCommand("next");
+        },
+            icon: const Icon(Icons.arrow_forward_ios),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(top: 50, bottom: 50, left: 50, right: 50)),
+            iconSize: MaterialStateProperty.all<double>(50),
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+          ),
+    ),
+
+      ],
+    ));
+  }
+
+  Widget _buildNetflix() {
+    return const Text("Netflix");
+  }
+
+  Widget _buildYouTube() {
+    return const Text("YouTube");
   }
 
   _checkConnection() async {
-    final response = await makeReq(widget.ip, "/checkConnection");
-    if(response.statusCode == 200) {
+    print("checkConnection");
+    final response = await makeReq(widget.ip, "/connected");
+    print(response.body);
+    if(response.statusCode == 200 && response.body == "true" && context.mounted) {
       Timer(const Duration(seconds: 1), () {
         _checkConnection();
       });
@@ -96,20 +138,46 @@ class CommandPageState extends State<CommandPage> {
     properties.add(DiagnosticsProperty('_context', _context));
   }
 
+  sendCommand(String command) async {
+    try {
+      final Settings settings = await Settings().loadData();
+
+      var response = await http.post(
+          Uri.parse("http://${widget.ip}:${settings.port}/command"),
+          headers: {
+            HttpHeaders.authorizationHeader: widget.pin
+          },
+          body: command
+      ).timeout(const Duration(seconds: 5));
+
+      return response;
+    } catch (e) {
+      print(e);
+      return http.Response("error: $e", 500);
+    }
+  }
+
+
   makeReq(String ip, String route) async {
     try {
         final Settings settings = await Settings().loadData();
+        if(!route.startsWith("/")) {
+          route = "/$route";
+        }
         var response = await http.get(
-            Uri.parse("http://$ip:${settings.port}route"),
+            Uri.parse("http://$ip:${settings.port}$route"),
             headers: {
               HttpHeaders.authorizationHeader: widget.pin
             }
-        );
+
+        ).timeout(const Duration(seconds: 5));
 
         return response;
     } catch (e) {
       return http.Response("error: $e", 500);
     }
   }
+
+
 
 }
