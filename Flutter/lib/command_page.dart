@@ -19,7 +19,6 @@ class CommandPage extends StatefulWidget {
 
 
 class CommandPageState extends State<CommandPage> {
-  late Settings? _settings;
   get _context => context;
 
   @override
@@ -80,18 +79,9 @@ class CommandPageState extends State<CommandPage> {
   }
 
   _checkConnection() async {
-    _settings = await Settings().loadData();
-    try {
-      var response = await http.get(
-          Uri.parse("http://${widget.ip}:${_settings?.port}/connect"),
-          headers: {
-            HttpHeaders.authorizationHeader: 'Bearer ${widget.pin}',
-          },
-      );
-      print("Test: ${response.body}");
-      if (response.body.contains("true") || response.statusCode == 200) return;
-    } catch (e) {
-      print(e);
+    final response = await makeReq(widget.ip, "/checkConnection");
+    if(response.statusCode != 200) {
+      return;
     }
 
     Navigator.pop(_context);
@@ -100,9 +90,24 @@ class CommandPageState extends State<CommandPage> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('_settings', _settings));
     properties.add(DiagnosticsProperty('_context', _context));
     properties.add(DiagnosticsProperty('_context', _context));
+  }
+
+  makeReq(String ip, String route) async {
+    try {
+        final Settings settings = await Settings().loadData();
+        var response = await http.get(
+            Uri.parse("http://$ip:${settings.port}route"),
+            headers: {
+              HttpHeaders.authorizationHeader: widget.pin
+            }
+        );
+
+        return response;
+    } catch (e) {
+      return http.Response("error: $e", 500);
+    }
   }
 
 }

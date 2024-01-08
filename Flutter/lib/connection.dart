@@ -1,7 +1,12 @@
+import "dart:io";
+
+import "package:freesdm/command_page.dart";
+import "package:freesdm/settings.dart";
+import "package:http/http.dart" as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import "dart:async";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:freesdm/command_page.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 class Connections extends StatefulWidget {
@@ -21,7 +26,7 @@ class _ConnectionsState extends State<Connections> {
   var _pinSeen = false;
   final _focusNode = FocusNode();
 
-   SharedPreferences? _prefs;
+  SharedPreferences? _prefs;
 
   _loadData() async {
     if (_prefs != null) return;
@@ -112,22 +117,14 @@ class _ConnectionsState extends State<Connections> {
                                       }),
                                   icon: const Icon(Icons.delete)),
                               onTap: () {
-                                if (!_formKeyPin.currentState!.validate() || _pinController.text.isEmpty) {
+                                if (!_formKeyPin.currentState!.validate() ||
+                                    _pinController.text.isEmpty) {
                                   showInfo("Pin is not valid.");
                                   return;
                                 }
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Scaffold(
-                                            body: CommandPage(
-                                              ip: _connections[i ~/ 2],
-                                              pin: _pinController.text,
-                                            )
-                                        )
-                                    )
-                                );
+                                _establishConnection(
+                                    _connections[i ~/ 2], _pinController.text);
                               });
                         }
 
@@ -182,45 +179,116 @@ class _ConnectionsState extends State<Connections> {
   }
 
   showInfo(String text) {
-      final PersistentBottomSheetController controller = showBottomSheet(
-          context: context,
-          builder: (BuildContext context) {
-            return SizedBox(
-                height: 100,
-                child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                     Center(
+    final PersistentBottomSheetController controller = showBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SizedBox(
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Center(
+                      child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(text,
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.redAccent)))),
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.close),
+                      )),
+                ],
+              ));
+        });
+
+    Timer(const Duration(seconds: 2), () {
+      controller.close();
+    });
+  }
+
+  Future<void> _establishConnection(String connection, String pin) async {
+    String text = "Establishing connection";
+
+    //cancelable connection
+    var client = http.Client();
+
+    //pop up
+    late BuildContext dialogContext;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          dialogContext = context;
+          return SizedBox(
+              height: MediaQuery.of(context).size.height - 50,
+              child: Container(
+                  color: Colors.black.withOpacity(0.65),
+                  child: Column(children: [
+                    Center(
                         child: Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Text(
-                                text,
+                            padding: const EdgeInsets.only(left: 16, top: 16),
+                            child: Text(text,
                                 style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.redAccent
-                                )
-                            )
-                        )
-                    ),
-                    Align(
-                        alignment: Alignment.topRight,
+                                    color: Colors.redAccent)))),
+                    LoadingAnimationWidget.prograssiveDots(
+                        color: Colors.white,
+                        size: MediaQuery.of(context).size.width / 2),
+                    Center(
                         child: IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.close),
-                        )
-                    ),
-                  ],
-                )
-            );
-          });
+                      style: ButtonStyle(
+                        iconSize: MaterialStateProperty.all<double>(50),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        client.close();
+                      },
+                      icon: const Icon(Icons.close),
+                    )),
+                  ])));
+        });
 
-      Timer(const Duration(seconds: 2), () {
-        controller.close();
-      });
+    try {
+      final Settings settings = await Settings().loadData();
+      var request = http.Request(
+          'GET', Uri.parse("http://$connection:${settings.port}/connect"));
+
+      request.headers.addAll({HttpHeaders.authorizationHeader: pin});
+
+      http.Response response =
+          await http.Response.fromStream(await client.send(request));
+      if (response.statusCode == 200) {
+        if (response.body.contains("false")) {
+          Navigator.pop(dialogContext);
+          showInfo("Invalid pin.");
+          client.close();
+          return;
+        }
+
+        Navigator.pop(dialogContext);
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    CommandPage(ip: connection, pin: pin)));
+
+        client.close();
+        return;
+      }
+
+      throw Exception("Response code: ${response.statusCode}");
+    } catch (e) {
+      Navigator.pop(dialogContext);
+      showInfo("Error: $e");
+      client.close();
     }
+  }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

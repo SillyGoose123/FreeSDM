@@ -13,13 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="better app and next / previous + reconnect">
-      <change afterPath="$PROJECT_DIR$/../Flutter/assets/microsoftpowerpoint.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Flutter/assets/netflix.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Flutter/assets/youtube.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Flutter/lib/freesdm_icons.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Flutter/lib/settings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Flutter/lib/commandPage.dart" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile/.idea/discord.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flutter/lib/connection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/connection.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.yaml" afterDir="false" />
@@ -161,7 +156,8 @@
       <workItem from="1704541057275" duration="1369000" />
       <workItem from="1704573252483" duration="1915000" />
       <workItem from="1704627512498" duration="1363000" />
-      <workItem from="1704657671968" duration="326000" />
+      <workItem from="1704657671968" duration="553000" />
+      <workItem from="1704678203509" duration="1031000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
