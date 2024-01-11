@@ -1,74 +1,61 @@
-use actix_web::http::header::HeaderValue;
+use std::io::Write;
+use colored::Colorize;
 use console::style;
 use local_ip_address::local_ip;
 use rand::Rng;
-use crate::{CLIENTS, IP_AUTH, PIN};
 
-pub fn gen_random_pin(i: i32) ->  String {
+pub fn gen_random_pin(i: i32) -> String {
     let mut string: String = String::new();
 
     for _ in 0..i {
         string = string + rand::thread_rng().gen_range(0..10).to_string().as_str();
     }
 
-    return string;
-
+    string
 }
 
-pub fn check_auth(token:Option<&HeaderValue> ) -> bool {
-    return match token.unwrap().to_str().unwrap().split(" ").last() {
-        None => false,
-        Some(token) => {
-            unsafe {
-                return PIN.as_ref().map(|inner_str| inner_str.as_str() == token).unwrap_or(false);
-            }
-        }
-    }
+pub fn ask(message: String) -> bool {
+    println!("{} ", message);
+    // for ux (user experience)
+    print!("> ");
+
+    //clear the tests buffer so the print combined with the input above works
+    std::io::stdout().flush().unwrap();
+
+    //create a string for the input
+    let mut input = String::new();
+
+    //read the input
+    std::io::stdin().read_line(&mut input).expect("Failed to read from stdin");
+
+    input.trim() == "y"
 }
 
-pub fn ip_auth(ip: &String) -> bool {
-    unsafe {
-        if !IP_AUTH { return true;}
-        if CLIENTS == None {
-            return false;
-        }
-        let clients = CLIENTS.as_ref().unwrap().split(";");
-        for cli in clients {
-            if cli == ip.as_str() {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-pub unsafe fn print_frame(debug: bool){
+pub fn print_frame(pin: &str, port: &str){
     //nice launch box
     let ip = local_ip().unwrap().to_string();
     let mut frame = String::new();
-    let mut space = String::new();
 
-    for _ in 0..ip.len() + 19 + 5 {
-        frame.push('-');
-    }
 
-    for _ in 0..ip.len() + 5 {
-        space.push(' ');
-    }
-    let app_name = format!("FreeSDM");
+    frame.push_str(&*"-".repeat(ip.len() + 19 + 5));
+
+    let app_name = "FreeSDM".to_string();
     winconsole::console::set_title(&app_name).unwrap();
 
     println!("{}{}", frame.replace("-", " ").get(0..frame.len() / 2 - app_name.len() / 2).unwrap(), style(app_name).cyan().bold());
 
-    println!("{}", frame);
-    println!("| Connection Ip: {}:{} |",  style(ip).green(), style("8000").blue());
+    println!("{}", &frame);
 
-    if debug {
+    println!("| Connection Ip: {}:{} |",  style(&ip).green(), style(&port).blue());
+
+    if &pin == &"0000" {
         println!("|{}{}|", style(" Debug MODE").red(), frame.replace("-", " ").get(0..frame.len() - 13).unwrap());
     } else {
-        println!("| Login Pin: {}{}|", style(PIN.as_ref().unwrap()).cyan(), space);
+        let mut space = String::new();
+
+        space.push_str(" ".repeat( 19 + ip.len() + port.len() - (13 + pin.len())).as_str());
+        println!("| Login Pin: {}{}|", style(&pin.cyan()), space);
     }
 
-    println!("{}", frame);
+        println!("{}\n", frame);
 }

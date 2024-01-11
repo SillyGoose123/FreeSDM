@@ -13,12 +13,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="better app and next / previous + reconnect">
-      <change beforePath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Flutter/lib/connection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/connection.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hotkey.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/keys.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/keys.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connection.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/keys.rs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +44,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main.rs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="mlt1igcp" />
   </component>
@@ -83,10 +89,16 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="Test" />
+    </option>
+  </component>
   <component name="RunManager" selected="Cargo.Test">
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command" nameIsGenerated="true">
       <option name="command" value="run" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
       <option name="emulateTerminal" value="true" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="false" />
@@ -94,7 +106,6 @@
       <option name="withSudo" value="true" />
       <option name="buildTarget" value="REMOTE" />
       <option name="backtrace" value="SHORT" />
-      <envs />
       <option name="isRedirectInput" value="false" />
       <option name="redirectInputPath" value="" />
       <method v="2">
@@ -102,8 +113,9 @@
       </method>
     </configuration>
     <configuration name="Test" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="command" value="run -- Test" />
+      <option name="command" value="run -- debug" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
       <option name="emulateTerminal" value="true" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="false" />
@@ -111,7 +123,6 @@
       <option name="withSudo" value="true" />
       <option name="buildTarget" value="REMOTE" />
       <option name="backtrace" value="SHORT" />
-      <envs />
       <option name="isRedirectInput" value="false" />
       <option name="redirectInputPath" value="" />
       <method v="2">
@@ -158,6 +169,10 @@
       <workItem from="1704627512498" duration="1363000" />
       <workItem from="1704657671968" duration="553000" />
       <workItem from="1704678203509" duration="1031000" />
+      <workItem from="1704900607123" duration="4565000" />
+      <workItem from="1704978551192" duration="20288000" />
+      <workItem from="1705001829907" duration="687000" />
+      <workItem from="1705003093520" duration="6124000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
