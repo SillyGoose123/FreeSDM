@@ -1,13 +1,43 @@
+// no snake case warn for bin target
+#![allow(non_snake_case)]
+
+use actix_web::post;
+use actix_web::web::get;
 use actix_web::{App, get, HttpRequest, HttpServer, web};
 use actix_web::guard::fn_guard;
 use actix_web::http::header;
-use actix_web::web::get;
+
 use colored::Colorize;
 use console::style;
 use crate::utils::{ask, print_frame};
 
 mod utils;
-mod hotkey;
+mod hotkeys;
+
+#[post("/hotkey")]
+async fn hotkey(raw: web::Bytes, req: HttpRequest) -> String {
+    //get ip for loging
+    let ip = req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost");
+
+    //send the hotkey
+    match String::from_utf8(raw.to_vec()) {
+        Ok(string_hotkey) => {
+            let result = hotkeys::send_hotkey(&string_hotkey);
+            if result.contains("true") {
+                println!("Hotkey {} from {}.", style(&string_hotkey).green(), style(&ip).green());
+            } else {
+                println!("Hotkey {} from {} failed.", style(&string_hotkey).red(), style(&ip).green());
+            }
+
+            result
+        },
+        Err(_) => {
+            println!("Hotkey failed from {}", req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost"));
+            "false\ninvalid utf8 string".to_string()
+        }
+    }
+
+}
 
 #[get("/connect")]
 async fn connect(req: HttpRequest) -> String {
@@ -122,6 +152,7 @@ async fn main() -> std::io::Result<()> {
                             .route("/connected", web::get().to(|| async {
                                 "true"
                             }))
+                            .service(hotkey)
                     )
 
                     //for error
