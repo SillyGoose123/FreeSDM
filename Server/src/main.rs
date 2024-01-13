@@ -1,8 +1,8 @@
 // no snake case warn for bin target
 #![allow(non_snake_case)]
 
-use actix_web::post;
-use actix_web::web::get;
+use crate::keys::{hotkey, text};
+use actix_web::web::{get, post};
 use actix_web::{App, get, HttpRequest, HttpServer, web};
 use actix_web::guard::fn_guard;
 use actix_web::http::header;
@@ -12,32 +12,7 @@ use console::style;
 use crate::utils::{ask, print_frame};
 
 mod utils;
-mod hotkeys;
-
-#[post("/hotkey")]
-async fn hotkey(raw: web::Bytes, req: HttpRequest) -> String {
-    //get ip for loging
-    let ip = req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost");
-
-    //send the hotkey
-    match String::from_utf8(raw.to_vec()) {
-        Ok(string_hotkey) => {
-            let result = hotkeys::send_hotkey(&string_hotkey);
-            if result.contains("true") {
-                println!("Hotkey {} from {}.", style(&string_hotkey).green(), style(&ip).green());
-            } else {
-                println!("Hotkey {} from {} failed.", style(&string_hotkey).red(), style(&ip).green());
-            }
-
-            result
-        },
-        Err(_) => {
-            println!("Hotkey failed from {}", req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost"));
-            "false\ninvalid utf8 string".to_string()
-        }
-    }
-
-}
+mod keys;
 
 #[get("/connect")]
 async fn connect(req: HttpRequest) -> String {
@@ -46,7 +21,12 @@ async fn connect(req: HttpRequest) -> String {
 
     //get the ips from env var and check if the ip is in there
     let env_ips = std::env::var("Ips").unwrap_or("".to_string());
-    let ips = &mut env_ips.split(",").collect::<Vec<&str>>();
+    let mut ips: Vec<&str> = if env_ips.is_empty() {
+        Vec::new()
+    } else {
+        env_ips.split(",").collect::<Vec<&str>>()
+    };
+
     if ips.contains(&&ip.as_str()) {
         //if the ip is in there, remove it and set the env var
         println!("Reconnected to {}\n", style(&ip).cyan());
@@ -67,17 +47,39 @@ async fn connect(req: HttpRequest) -> String {
     "true".to_string()
 }
 
+fn unauthorized(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("")
+            //for error
+            .route("/connect", get().to(|| async {
+                "Unauthorized"
+            }))
+            .route("/connected", get().to(|| async {
+                "Unauthorized"
+            }))
+            .route("/hotkey", post().to(|| async {
+                "Unauthorized"
+            }))
+            .route("/text", post().to(|| async {
+                "Unauthorized"
+            }))
+    );
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     //get args
     let args = std::env::args().collect::<Vec<String>>();
 
-    //check for debug arg else generate random pin
+    //check for debug arg else generate random pin and do the env stuff
     let pin = if args.contains(&"debug".to_string()) {
+        std::env::set_var("Ips", "localhost");
         "0000".to_string()
     } else {
+        std::env::set_var("Ips", "");
         utils::gen_random_pin(6)
     };
+    std::env::set_var("Pin", &pin.as_str());
 
     //check for port arg else use 8000
     let port: u16 = match args.iter().filter(|&x| x.contains("port"))
@@ -100,17 +102,16 @@ async fn main() -> std::io::Result<()> {
         std::process::exit(1);
     }
 
-
-    //set env vars and show pin and ip in frame
+    //show pin and ip in frame
     print_frame(&pin, port.to_string().as_str());
-    std::env::set_var("Pin", &pin.as_str());
-    std::env::set_var("Ips", "");
 
     //start server
     HttpServer::new(move || {
         App::new()
             .route("/", web::get().to(|| async { "Hello, world!" }))
-
+            .route("/version", get().to(|| async {
+                env!("CARGO_PKG_VERSION")
+            }))
             .service(
                 web::scope("")
                     .guard(fn_guard(|req| {
@@ -141,7 +142,10 @@ async fn main() -> std::io::Result<()> {
                                 match req.head().peer_addr {
                                     None => false,
                                     Some(peer_addr) => {
-                                        let ip = peer_addr.ip().to_string();
+                                        //get ip and replace localhost
+                                        let ip = peer_addr.ip().to_string().replace("127.0.0.1", "localhost");
+
+                                        //get the ips from env var and check if the ip is in there
                                         let env_ips = std::env::var("Ips").unwrap_or("".to_string());
                                         let ips = &mut env_ips.split(",").collect::<Vec<&str>>();
                                         ips.contains(&&ip.as_str())
@@ -153,25 +157,13 @@ async fn main() -> std::io::Result<()> {
                                 "true"
                             }))
                             .service(hotkey)
+                            .service(text)
                     )
 
-                    //for error
-                    .route("/connected", get().to(|| async {
-                        "Unauthorized"
-                    }))
+                    .configure(unauthorized)
             )
 
-            //for error
-            .route("/connect", get().to(|| async {
-                "Unauthorized"
-            }))
-            .route("/connected", get().to(|| async {
-                "Unauthorized"
-            }))
-            .route("/version", get().to(|| async {
-                env!("CARGO_PKG_VERSION")
-            }))
-
+            .configure(unauthorized)
     })
         .bind(("0.0.0.0", port))?
         .run()
