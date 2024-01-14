@@ -1,18 +1,20 @@
 // no snake case warn for bin target
 #![allow(non_snake_case)]
 
-use crate::keys::{hotkey, text};
 use actix_web::web::{get, post};
 use actix_web::{App, get, HttpRequest, HttpServer, web};
 use actix_web::guard::fn_guard;
 use actix_web::http::header;
-
 use colored::Colorize;
 use console::style;
+
+use crate::keys::{hotkey, text};
+use crate::mouse::{click, scroll};
 use crate::utils::{ask, print_frame};
 
 mod utils;
 mod keys;
+mod mouse;
 
 #[get("/connect")]
 async fn connect(req: HttpRequest) -> String {
@@ -29,12 +31,12 @@ async fn connect(req: HttpRequest) -> String {
 
     if ips.contains(&&ip.as_str()) {
         //if the ip is in there, remove it and set the env var
-        println!("Reconnected to {}\n", style(&ip).cyan());
+        println!("Reconnected to {}\n", &ip.cyan());
         return "true \nreconnected".to_string();
     }
 
     //ask if the user wants to connect to the new ip
-    if !ask(format!("Connect to {}?", style(&ip).cyan())) {
+    if !ask(format!("Connect to {}?", &ip.cyan())) {
         return "false".to_string();
     }
 
@@ -43,7 +45,7 @@ async fn connect(req: HttpRequest) -> String {
     std::env::set_var("Ips", ips.join(","));
 
     //say the user and the client that the connection was successful
-    println!("Connected to {}\n", style(&ip).green());
+    println!("Connected to {}\n", &ip.green());
     "true".to_string()
 }
 
@@ -61,6 +63,12 @@ fn unauthorized(cfg: &mut web::ServiceConfig) {
                 "Unauthorized"
             }))
             .route("/text", post().to(|| async {
+                "Unauthorized"
+            }))
+            .route("/scroll", post().to(|| async {
+                "Unauthorized"
+            }))
+            .route("/click", post().to(|| async {
                 "Unauthorized"
             }))
     );
@@ -96,7 +104,7 @@ async fn main() -> std::io::Result<()> {
 
     //check if port is free
     if !portpicker::is_free(port) {
-        println!("{}{}\n{0}{}", " ".repeat((port.to_string().len() + 69 - 7)  / 2) , style("FreeSDM").cyan().bold(), "-".repeat(7));
+        println!("{}{}\n{0}{}", " ".repeat((port.to_string().len() + 69 - 7)  / 2) , "FreeSDM".cyan().bold(), "-".repeat(7));
         println!("Port {} is already in use. Change port with the program arg [{}].", style(port).red(), style("--port=").color256(8));
         ask("Press a key to exit:".to_string());
         std::process::exit(1);
@@ -126,8 +134,8 @@ async fn main() -> std::io::Result<()> {
                                 let auth = header == pin;
 
                                 if req.head().uri.path() == "/connect" && !auth {
-                                    println!("{}", style(format!("Access with Pin {} failed.", header.red())));
-                                    println!("Real Login Pin: {}\n", style(pin).cyan());
+                                    println!("{}", format!("Access with Pin {} failed.", header.red()));
+                                    println!("Real Login Pin: {}\n", pin.cyan());
                                 }
 
                                 auth
@@ -158,6 +166,8 @@ async fn main() -> std::io::Result<()> {
                             }))
                             .service(hotkey)
                             .service(text)
+                            .service(scroll)
+                            .service(click)
                     )
 
                     .configure(unauthorized)

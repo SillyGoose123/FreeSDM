@@ -1,7 +1,6 @@
 use actix_web::{HttpRequest, post, web};
-use console::style;
+use colored::Colorize;
 use enigo::{Key, KeyboardControllable};
-use crate::keys;
 
 struct Hotkey {
     keys: Vec<Key>,
@@ -17,17 +16,10 @@ async fn hotkey(raw: web::Bytes, req: HttpRequest) -> String {
     //send the hotkey
     match String::from_utf8(raw.to_vec()) {
         Ok(string_hotkey) => {
-            let result = keys::send_hotkey(&string_hotkey);
-            if result.contains("true") {
-                println!("Hotkey {} from {}.", style(&string_hotkey.replace("\n", ",")).green(), style(&ip).green());
-            } else {
-                println!("Hotkey {} from {} failed.", style(&string_hotkey).red(), style(&ip).green());
-            }
-
-            result
+            send_hotkey(&string_hotkey, &ip)
         },
         Err(_) => {
-            println!("Hotkey failed from {}", req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost"));
+            println!("Hotkey {} from {}", "failed".red() ,&ip.green());
             "false\ninvalid utf8 string".to_string()
         }
     }
@@ -41,23 +33,16 @@ async fn text(raw: web::Bytes, req: HttpRequest) -> String {
     //send the hotkey
     match String::from_utf8(raw.to_vec()) {
         Ok(text) => {
-            let result = send_text(&text);
-            if result.contains("true") {
-                println!("Text \"{}\" from {}.", style(&text).green(), style(&ip).green());
-            } else {
-                println!("Text \"{}\" from {} failed.", style(&text).red(), style(&ip).green());
-            }
-
-            result
+            send_text(&text, &ip)
         }
         Err(_) => {
-            println!("Text failed from {}", req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost"));
+            println!("Text {} from {}", "failed".red(), &ip.green());
             "false\ninvalid utf8 string".to_string()
         }
     }
 }
 
-pub fn send_hotkey(raw_hotkey: &String) -> String {
+fn send_hotkey(raw_hotkey: &String, ip: &String) -> String {
     // parse hotkey && create enigo instance
     let mut enigo = enigo::Enigo::new();
 
@@ -81,14 +66,16 @@ pub fn send_hotkey(raw_hotkey: &String) -> String {
     }
 
     // Return true because no error
+    println!("Hotkey {} from {}.", &raw_hotkey.replace("\n", ",").green(), &ip.green());
     "true".to_string()
 }
 
-pub fn send_text(other_text: &String) -> String {
+fn send_text(key_sequence: &String, ip: &String) -> String {
     // parse hotkey && create enigo instance
     let mut enigo = enigo::Enigo::new();
 
-    enigo.key_sequence(other_text);
+    enigo.key_sequence(&key_sequence);
+    println!("Text \"{}\" from {}.", &key_sequence.green(), &ip.green());
 
     // Return true because no error
     "true".to_string()
@@ -123,6 +110,14 @@ fn parse(raw_hotkey: &str) -> Hotkey {
             "f10" => keys.push(Key::F10),
             "f11" => keys.push(Key::F11),
             "f12" => keys.push(Key::F12),
+            "up" => keys.push(Key::UpArrow),
+            "down" => keys.push(Key::DownArrow),
+            "left" => keys.push(Key::LeftArrow),
+            "right" => keys.push(Key::RightArrow),
+            "backspace" => keys.push(Key::Backspace),
+            "media_next" => keys.push(Key::MediaNextTrack),
+            "media_prev" => keys.push(Key::MediaPrevTrack),
+            "media_play" => keys.push(Key::MediaPlayPause),
             key => {
                 for key_char in key.chars() {
                     keys.push(Key::Layout(key_char));

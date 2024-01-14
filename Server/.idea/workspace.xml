@@ -12,12 +12,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="remove mobile app because flutter app is better">
+    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="text and hotkey send works">
       <change afterPath="$PROJECT_DIR$/src/mouse.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hotkeys.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/keys.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/keys.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/keys.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -176,7 +174,8 @@
       <workItem from="1705001829907" duration="687000" />
       <workItem from="1705003093520" duration="6124000" />
       <workItem from="1705009270614" duration="455000" />
-      <workItem from="1705164847396" duration="6115000" />
+      <workItem from="1705164847396" duration="6547000" />
+      <workItem from="1705229115383" duration="2708000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
@@ -242,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705164181939</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="text and hotkey send works">
+      <option name="closed" value="true" />
+      <created>1705171760115</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705171760115</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +264,8 @@
     <MESSAGE value="better app and next / previous + reconnect" />
     <MESSAGE value="started with redesign" />
     <MESSAGE value="remove mobile app because flutter app is better" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove mobile app because flutter app is better" />
+    <MESSAGE value="text and hotkey send works" />
+    <option name="LAST_COMMIT_MESSAGE" value="text and hotkey send works" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
