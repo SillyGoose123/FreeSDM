@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "connection.dart";
 
@@ -14,38 +15,62 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: "FreeSDM",
         theme: ThemeData(
-            useMaterial3: true,
+          useMaterial3: true,
 
-            // Define the default brightness and colors.
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.blueAccent,
-              background: Colors.white10,
-              brightness: Brightness.dark,
-            ),
-            drawerTheme: const DrawerThemeData(backgroundColor: Colors.white10),
-            navigationBarTheme: const NavigationBarThemeData(
-              backgroundColor: Colors.white10,
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.onlyShowSelected,
-              indicatorColor: Colors.blueAccent,
-            ),
-            textTheme: const TextTheme(
-              displaySmall: TextStyle(
-                fontSize: 72,
-                fontWeight: FontWeight.bold,
-                color: Colors.white
-              ),
-              displayMedium: TextStyle(
-                fontSize: 72,
-                fontWeight: FontWeight.bold,
-              ),
-              displayLarge: TextStyle(
-                fontSize: 72,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
+          // Define the default brightness and colors.
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blueAccent,
+            background: Colors.white10,
+            brightness: Brightness.dark,
+          ),
+        ),
         home: const Scaffold(
           body: Connections(),
         ));
   }
+}
+
+void showErrorDialog(BuildContext context, String message) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (context) {
+      return CupertinoAlertDialog(
+        title: const Text(
+          "Error",
+          style: TextStyle(fontSize: 20),
+        ),
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.redAccent, fontSize: 18),
+        ),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text("Ok"),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
+      );
+    },
+  );
+}
+
+showPage(Widget page, BuildContext context) {
+  Navigator.push(
+      context,
+      PageRouteBuilder(
+          transitionsBuilder:
+              (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: Container(color: Colors.black, child: child),
+            );
+          },
+          pageBuilder: (context, animation, secondaryAnimation) => page));
 }

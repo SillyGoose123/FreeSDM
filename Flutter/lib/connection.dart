@@ -1,12 +1,15 @@
 import "dart:io";
-
+import "package:flutter/cupertino.dart";
+import "package:flutter/rendering.dart";
 import "package:freesdm/command_page.dart";
+import "package:freesdm/main.dart";
 import "package:freesdm/settings.dart";
 import "package:http/http.dart" as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import "dart:async";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
+import "package:package_info_plus/package_info_plus.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 class Connections extends StatefulWidget {
@@ -54,13 +57,28 @@ class _ConnectionsState extends State<Connections> {
     return Padding(
         padding: const EdgeInsets.fromLTRB(16, 50, 16, 16),
         child: Column(children: [
-          const Text("Pin:",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Expanded(
+                  child: Text("Pin:",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ))),
+              IconButton(
+                onPressed: () => _showPage(const SettingsPage(name: "Standard")),
+                icon: const Icon(Icons.settings),
+                alignment: Alignment.centerRight,
+              )
+            ],
+          ),
           Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: Form(
                   key: _formKeyPin,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -68,9 +86,12 @@ class _ConnectionsState extends State<Connections> {
                     focusNode: _focusNode,
                     obscureText: _pinSeen,
                     controller: _pinController,
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
                     decoration: InputDecoration(
                         icon: const Icon(Icons.lock),
-                        hintText: "Target ip address",
+                        hintText: "Pin",
                         suffixIcon: IconButton(
                             onPressed: () => _pinController.clear(),
                             icon: const Icon(Icons.clear))),
@@ -80,7 +101,7 @@ class _ConnectionsState extends State<Connections> {
                       }
 
                       if (!RegExp(r"^[0-9]*$").hasMatch(value)) {
-                        return "Not valid pin";
+                        return "Invalid pin.";
                       }
 
                       return null;
@@ -106,117 +127,131 @@ class _ConnectionsState extends State<Connections> {
                         }
 
                         if (i ~/ 2 < _connections.length) {
-                          return ListTile(
-                              title: Text(_connections[i ~/ 2]),
-                              trailing: IconButton(
-                                  onPressed: () => setState(() {
-                                        _connections
-                                            .remove(_connections[i ~/ 2]);
-                                        _prefs?.setStringList(
-                                            "connections", _connections);
-                                      }),
-                                  icon: const Icon(Icons.delete)),
-                              onTap: () {
-                                if (!_formKeyPin.currentState!.validate() ||
-                                    _pinController.text.isEmpty) {
-                                  showInfo("Pin is not valid.");
-                                  return;
-                                }
-
-                                _establishConnection(
-                                    _connections[i ~/ 2], _pinController.text);
-                              });
+                          return _createNormalListTile(i ~/ 2);
                         }
 
-                        return ListTile(
-                            title: Form(
-                                key: _formKey,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                child: TextFormField(
-                                  controller: _textController,
-                                  decoration: InputDecoration(
-                                      icon: const Icon(Icons.add),
-                                      hintText: "Target ip address",
-                                      suffixIcon: IconButton(
-                                          onPressed: () =>
-                                              _textController.clear(),
-                                          icon: const Icon(Icons.clear))),
-                                  onFieldSubmitted: (value) {
-                                    if (!_formKey.currentState!.validate()) {
-                                      return;
-                                    }
-
-                                    setState(() {
-                                      _connections.add(_textController.text);
-                                      _textController.clear();
-                                      _prefs?.setStringList(
-                                          "connections", _connections);
-                                    });
-                                  },
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return null;
-                                    }
-
-                                    if (!RegExp(
-                                            r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$")
-                                        .hasMatch(value)) {
-                                      return "Not valid ip address";
-                                    }
-
-                                    if (_connections.contains(value)) {
-                                      return "Already added";
-                                    }
-
-                                    return null;
-                                  },
-                                  maxLength: 15,
-                                  keyboardType: TextInputType.number,
-                                )));
+                        return _createAddConnection();
                       })))
         ]));
   }
 
-  showInfo(String text) {
-    final PersistentBottomSheetController controller = showBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return SizedBox(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Center(
-                      child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Text(text,
-                              style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.redAccent)))),
-                  Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.close),
-                      )),
-                ],
-              ));
-        });
+  Widget _createNormalListTile(i) {
+    return ListTile(
+        title: Text(_connections[i]),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () => _showPage(SettingsPage(
+                    name: _connections[i]))
+            ),
+           IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                   showCupertinoModalPopup(
+                       context: context, builder: (context) {
+                         return CupertinoAlertDialog(
+                           title: const Text(
+                             "Delete?",
+                             style: TextStyle(fontSize: 20),
+                           ),
+                           content: Text(
+                             "Are you sure you want to delete ${_connections[i]}?",
+                             style: const TextStyle(color: Colors.redAccent, fontSize: 18),
+                           ),
+                           actions: [
+                             CupertinoDialogAction(
+                               child: const Text("Yes"),
+                               onPressed: () {
+                                  setState(() {
+                                    _connections.removeAt(i);
+                                    _prefs?.setStringList("connections", _connections);
+                                  });
+                                 Navigator.pop(context);
+                               },
+                             ),
+                             CupertinoDialogAction(
+                               child: const Text("No"),
+                               onPressed: () => Navigator.pop(context),
+                             ),
+                           ],
+                         );
+                         },
+                   );
+                    })
+        ]),
+        onTap: () {
+          if (!_formKeyPin.currentState!.validate() ||
+              _pinController.text.isEmpty) {
+            showErrorDialog(context, "Invalid pin.");
+            return;
+          }
 
-    Timer(const Duration(seconds: 2), () {
-      controller.close();
-    });
+          _establishConnection(
+              _connections[i ~/ 2], _pinController.text);
+        });
   }
 
-  Future<void> _establishConnection(String connection, String pin) async {
-    //cancelable connection
-    var client = http.Client();
+  Widget _createAddConnection() {
+    return ListTile(
+        title: Form(
+            key: _formKey,
+            autovalidateMode:
+            AutovalidateMode.onUserInteraction,
+            child: TextFormField(
+              controller: _textController,
+              decoration: InputDecoration(
+                  icon: const Icon(Icons.add),
+                  hintText: "Target ip address",
+                  suffixIcon: IconButton(
+                      onPressed: () =>
+                          _textController.clear(),
+                      icon: const Icon(Icons.clear))),
+              onFieldSubmitted: (value) {
+                if (!_formKey.currentState!.validate()) {
+                  return;
+                }
 
-    //pop up
-    late BuildContext dialogContext;
+                setState(() {
+                  _connections.add(_textController.text);
+                  Settings(name: _textController.text)
+                      .createByStandard();
+                  _textController.clear();
+                  _prefs?.setStringList(
+                      "connections", _connections);
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return null;
+                }
+
+                if (!RegExp(
+                    r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$")
+                    .hasMatch(value)) {
+                  return "Invalid ip address.";
+                }
+
+                if (_connections.contains(value)) {
+                  return "Already added.";
+                }
+
+                return null;
+              },
+              maxLength: 15,
+              keyboardType: TextInputType.number,
+      )));
+  }
+
+
+  _establishConnection(String connection, String pin) async {
+    BuildContext? dialogContext;
+
+    dismissDialog() {
+      Navigator.pop(dialogContext!);
+    }
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -229,8 +264,7 @@ class _ConnectionsState extends State<Connections> {
                     const Center(
                         child: Padding(
                             padding: EdgeInsets.only(left: 16, top: 16),
-                            child: Text(
-                                "Establishing connection:",
+                            child: Text("Establishing connection:",
                                 style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
@@ -244,8 +278,7 @@ class _ConnectionsState extends State<Connections> {
                         iconSize: MaterialStateProperty.all<double>(50),
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
-                        client.close();
+                        dismissDialog();
                       },
                       icon: const Icon(Icons.close),
                     )),
@@ -253,39 +286,47 @@ class _ConnectionsState extends State<Connections> {
         });
 
     try {
-      final Settings settings = await Settings().loadData();
-      var request = http.Request(
-          'GET', Uri.parse("http://$connection:${settings.port}/connect"));
+      //wait so cancel button can be pressed
+      await Future.delayed(const Duration(milliseconds: 100));
 
-      request.headers.addAll({HttpHeaders.authorizationHeader: pin});
+      final Settings settings = await Settings(name: connection).loadData();
 
-      http.Response response =
-          await http.Response.fromStream(await client.send(request));
-      if (response.statusCode == 200) {
-        if (response.body.contains("false")) {
-          throw Exception("Response denied.");
-        }
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-        if(dialogContext.mounted) Navigator.pop(dialogContext);
+      var versionReq = await http.get(
+          Uri.parse("http://$connection:${settings.port}/version"),
+          headers: {HttpHeaders.authorizationHeader: pin});
 
-        if(context.mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    CommandPage(ip: connection, pin: pin)));
-        }
-
-        client.close();
+      if (versionReq.statusCode != 200 ||
+          versionReq.body.trim() != packageInfo.version.trim()) {
+        dismissDialog();
+        _showErrorDialog("Connection failed.");
         return;
       }
 
-      throw Exception("Response failed with code: ${response.statusCode}");
+      var response = await http.get(
+          Uri.parse("http://$connection:${settings.port}/connect"),
+          headers: {HttpHeaders.authorizationHeader: pin});
+
+      if (response.statusCode == 200 && response.body.contains("true")) {
+        dismissDialog();
+        _showPage(CommandPage(ip: connection, pin: pin));
+      } else {
+        dismissDialog();
+        _showErrorDialog("Connection failed.");
+      }
     } catch (e) {
-      if(dialogContext.mounted) Navigator.pop(dialogContext);
-      showInfo("Connection failed.");
-      client.close();
+      dismissDialog();
+      _showErrorDialog("Connection failed.");
     }
+  }
+
+  void _showErrorDialog(String message) {
+    showErrorDialog(context, message);
+  }
+
+  void _showPage(Widget page) {
+    showPage(page, context);
   }
 
   @override
@@ -293,4 +334,5 @@ class _ConnectionsState extends State<Connections> {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty('_prefs', _prefs));
   }
+
 }

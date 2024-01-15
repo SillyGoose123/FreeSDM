@@ -12,10 +12,17 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="text and hotkey send works">
-      <change afterPath="$PROJECT_DIR$/src/mouse.rs" afterDir="false" />
+    <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="code clean up and mouse clicks &amp;&amp; scroll">
+      <change beforePath="$PROJECT_DIR$/../Flutter/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/connection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/connection.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/freesdm_icons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/freesdm_icons.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/keys.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/keys.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -175,7 +182,8 @@
       <workItem from="1705003093520" duration="6124000" />
       <workItem from="1705009270614" duration="455000" />
       <workItem from="1705164847396" duration="6547000" />
-      <workItem from="1705229115383" duration="2708000" />
+      <workItem from="1705229115383" duration="10081000" />
+      <workItem from="1705339060812" duration="1366000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />
@@ -249,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705171760115</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="code clean up and mouse clicks &amp;&amp; scroll">
+      <option name="closed" value="true" />
+      <created>1705232083459</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705232083459</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +281,8 @@
     <MESSAGE value="started with redesign" />
     <MESSAGE value="remove mobile app because flutter app is better" />
     <MESSAGE value="text and hotkey send works" />
-    <option name="LAST_COMMIT_MESSAGE" value="text and hotkey send works" />
+    <MESSAGE value="code clean up and mouse clicks &amp;&amp; scroll" />
+    <option name="LAST_COMMIT_MESSAGE" value="code clean up and mouse clicks &amp;&amp; scroll" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

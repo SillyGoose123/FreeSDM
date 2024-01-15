@@ -2,7 +2,7 @@
 #![allow(non_snake_case)]
 
 use actix_web::web::{get, post};
-use actix_web::{App, get, HttpRequest, HttpServer, web};
+use actix_web::{App, get, HttpRequest, HttpResponse, HttpServer, web};
 use actix_web::guard::fn_guard;
 use actix_web::http::header;
 use colored::Colorize;
@@ -37,6 +37,7 @@ async fn connect(req: HttpRequest) -> String {
 
     //ask if the user wants to connect to the new ip
     if !ask(format!("Connect to {}?", &ip.cyan())) {
+        println!("Connection to {} denied.\n", &ip.red());
         return "false".to_string();
     }
 
@@ -54,22 +55,22 @@ fn unauthorized(cfg: &mut web::ServiceConfig) {
         web::scope("")
             //for error
             .route("/connect", get().to(|| async {
-                "Unauthorized"
+                HttpResponse::Unauthorized().body("Unauthorized")
             }))
             .route("/connected", get().to(|| async {
-                "Unauthorized"
+                HttpResponse::Unauthorized().body("Unauthorized")
             }))
             .route("/hotkey", post().to(|| async {
-                "Unauthorized"
+                HttpResponse::Unauthorized().body("Unauthorized")
             }))
             .route("/text", post().to(|| async {
-                "Unauthorized"
+                HttpResponse::Unauthorized().body("Unauthorized")
             }))
             .route("/scroll", post().to(|| async {
-                "Unauthorized"
+                HttpResponse::Unauthorized().body("Unauthorized")
             }))
             .route("/click", post().to(|| async {
-                "Unauthorized"
+                HttpResponse::Unauthorized().body("Unauthorized")
             }))
     );
 }

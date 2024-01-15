@@ -8,13 +8,11 @@ class FreeSDMIcon {
   //powerpoint
   static SvgPicture powerpoint = SvgPicture.asset(
       'assets/microsoftpowerpoint.svg',
-      color: Colors.white38,
-  );
+      colorFilter: const ColorFilter.mode(Colors.white38, BlendMode.srcIn));
 
   static SvgPicture powerpointActive = SvgPicture.asset(
-    'assets/microsoftpowerpoint.svg',
-    color: const Color.fromRGBO(171, 196, 250, 1.0)
-  );
+      'assets/microsoftpowerpoint.svg',
+      color: const Color.fromRGBO(171, 196, 250, 1.0));
 
   //netflix
   static SvgPicture netflix = SvgPicture.asset(

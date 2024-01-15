@@ -17,15 +17,21 @@ class CommandPage extends StatefulWidget {
   CommandPageState createState() => CommandPageState();
 }
 
-
 class CommandPageState extends State<CommandPage> {
-  get _context => context;
+  @override
+  initState() {
+    super.initState();
+    Timer(const Duration(seconds: 1), () {
+      _checkConnection();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    _checkConnection();
     return CupertinoTabScaffold(
+      backgroundColor: Colors.white10,
       tabBar: CupertinoTabBar(
+        backgroundColor: Colors.white10,
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
@@ -82,31 +88,7 @@ class CommandPageState extends State<CommandPage> {
   }
 
   Widget _buildPowerPointTab() {
-    return Padding(padding: EdgeInsets.only(top: 5), child: Row(
-
-      children: [
-        IconButton(onPressed: () {
-        sendCommand("back");
-      }, icon: const Icon(Icons.arrow_back_ios),
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(top: 50, bottom: 50, left: 50, right: 50)),
-          iconSize: MaterialStateProperty.all<double>(50),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
-        ),),
-        const Spacer(),
-        IconButton(onPressed: () {
-          sendCommand("next");
-        },
-            icon: const Icon(Icons.arrow_forward_ios),
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(top: 50, bottom: 50, left: 50, right: 50)),
-            iconSize: MaterialStateProperty.all<double>(50),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
-          ),
-    ),
-
-      ],
-    ));
+    return const Text("PowerPoint");
   }
 
   Widget _buildNetflix() {
@@ -118,66 +100,40 @@ class CommandPageState extends State<CommandPage> {
   }
 
   _checkConnection() async {
-    print("checkConnection");
     final response = await makeReq(widget.ip, "/connected");
-    print(response.body);
-    if(response.statusCode == 200 && response.body == "true" && context.mounted) {
+    if (response.statusCode == 200 && response.body == "true" && mounted) {
       Timer(const Duration(seconds: 1), () {
         _checkConnection();
       });
       return;
     }
 
-    Navigator.pop(_context);
+    if (mounted) {
+      Navigator.pop(context);
+    }
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('_context', _context));
-    properties.add(DiagnosticsProperty('_context', _context));
+    properties.add(DiagnosticsProperty('_context', context));
+    properties.add(DiagnosticsProperty('_context', context));
   }
-
-  sendCommand(String command) async {
-    try {
-      final Settings settings = await Settings().loadData();
-
-      var response = await http.post(
-          Uri.parse("http://${widget.ip}:${settings.port}/command"),
-          headers: {
-            HttpHeaders.authorizationHeader: widget.pin
-          },
-          body: command
-      ).timeout(const Duration(seconds: 5));
-
-      return response;
-    } catch (e) {
-      print(e);
-      return http.Response("error: $e", 500);
-    }
-  }
-
 
   makeReq(String ip, String route) async {
     try {
-        final Settings settings = await Settings().loadData();
-        if(!route.startsWith("/")) {
-          route = "/$route";
-        }
-        var response = await http.get(
-            Uri.parse("http://$ip:${settings.port}$route"),
-            headers: {
-              HttpHeaders.authorizationHeader: widget.pin
-            }
+      final Settings settings = await Settings(name: ip).loadData();
+      if (!route.startsWith("/")) {
+        route = "/$route";
+      }
+      var response = await http
+          .get(Uri.parse("http://$ip:${settings.port}$route"), headers: {
+        HttpHeaders.authorizationHeader: widget.pin
+      }).timeout(const Duration(seconds: 5));
 
-        ).timeout(const Duration(seconds: 5));
-
-        return response;
+      return response;
     } catch (e) {
       return http.Response("error: $e", 500);
     }
   }
-
-
-
 }
