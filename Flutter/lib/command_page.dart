@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:freesdm/commands.dart';
 import 'package:freesdm/freesdm_icons.dart';
+import 'package:freesdm/settings_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -50,8 +52,8 @@ class CommandPageState extends State<CommandPage> {
               icon: FreeSDMIcon.youtube,
               activeIcon: FreeSDMIcon.youtubeActive),
           const BottomNavigationBarItem(
-              label: "Settings",
-              icon: Icon(CupertinoIcons.settings),
+            label: "Settings",
+            icon: Icon(Icons.settings),
           ),
         ],
       ),
@@ -81,9 +83,10 @@ class CommandPageState extends State<CommandPage> {
 
       case 3:
         return _buildYouTube();
-        
+
       case 4:
-        return SettingsPage(name: widget.ip, commandPage: true);
+        return SettingsPage(
+            name: widget.ip, commandPage: true, completeContext: context);
 
       default:
         return _buildStandard();
@@ -95,7 +98,52 @@ class CommandPageState extends State<CommandPage> {
   }
 
   Widget _buildPowerPointTab() {
-    return const Text("PowerPoint");
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+      Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_back_ios),
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.only(
+                        top: 50, bottom: 50, left: 50, right: 50)),
+                iconSize: MaterialStateProperty.all<double>(50),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent),
+              ),
+            ),
+            const Spacer(),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.arrow_forward_ios),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.only(
+                          top: 50, bottom: 50, left: 50, right: 50)),
+                  iconSize: MaterialStateProperty.all<double>(50),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blueAccent),
+                )),
+          ],
+        ),
+        Padding(padding: const EdgeInsets.only(top: 65), child: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.start_rounded),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.only(
+                    top: 50, bottom: 50, left: 50, right: 50)),
+            iconSize: MaterialStateProperty.all<double>(50),
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Colors.blueAccent),
+          ),
+        ))
+      ],
+    );
   }
 
   Widget _buildNetflix() {
@@ -142,5 +190,9 @@ class CommandPageState extends State<CommandPage> {
     } catch (e) {
       return http.Response("error: $e", 500);
     }
+  }
+
+  void excetuteHotkey(Command command) async {
+    print("hotkey: ${command.toString()}");
   }
 }

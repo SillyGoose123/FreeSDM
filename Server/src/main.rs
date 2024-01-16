@@ -81,7 +81,7 @@ async fn main() -> std::io::Result<()> {
     let args = std::env::args().collect::<Vec<String>>();
 
     //check for debug arg else generate random pin and do the env stuff
-    let pin = if args.contains(&"debug".to_string()) {
+    let pin = if args.contains(&"debug".to_string()) || args.contains(&"--debug".to_string()) {
         std::env::set_var("Ips", "localhost");
         "0000".to_string()
     } else {

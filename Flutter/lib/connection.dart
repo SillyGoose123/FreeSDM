@@ -1,9 +1,9 @@
 import "dart:io";
-import "package:flutter/cupertino.dart";
 import "package:flutter/rendering.dart";
 import "package:freesdm/command_page.dart";
 import "package:freesdm/main.dart";
 import "package:freesdm/settings.dart";
+import "package:freesdm/settings_page.dart";
 import "package:http/http.dart" as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import "dart:async";
@@ -70,7 +70,7 @@ class _ConnectionsState extends State<Connections> {
                         color: Colors.blueAccent,
                       ))),
               IconButton(
-                onPressed: () => _showPage(const SettingsPage(name: "Standard")),
+                onPressed: () => _showPage(const SettingsPage(name: "Standard", commandPage: false)),
                 icon: const Icon(Icons.settings),
                 alignment: Alignment.centerRight,
               )
@@ -137,49 +137,13 @@ class _ConnectionsState extends State<Connections> {
   Widget _createNormalListTile(i) {
     return ListTile(
         title: Text(_connections[i]),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () => _showPage(SettingsPage(
-                    name: _connections[i]))
-            ),
-           IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                   showCupertinoModalPopup(
-                       context: context, builder: (context) {
-                         return CupertinoAlertDialog(
-                           title: const Text(
-                             "Delete?",
-                             style: TextStyle(fontSize: 20),
-                           ),
-                           content: Text(
-                             "Are you sure you want to delete ${_connections[i]}?",
-                             style: const TextStyle(color: Colors.redAccent, fontSize: 18),
-                           ),
-                           actions: [
-                             CupertinoDialogAction(
-                               child: const Text("Yes"),
-                               onPressed: () {
-                                  setState(() {
-                                    _connections.removeAt(i);
-                                    _prefs?.setStringList("connections", _connections);
-                                  });
-                                 Navigator.pop(context);
-                               },
-                             ),
-                             CupertinoDialogAction(
-                               child: const Text("No"),
-                               onPressed: () => Navigator.pop(context),
-                             ),
-                           ],
-                         );
-                         },
-                   );
-                    })
-        ]),
+        trailing: IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => _showPage(SettingsPage(
+                name: _connections[i]
+            ))
+          ),
+
         onTap: () {
           if (!_formKeyPin.currentState!.validate() ||
               _pinController.text.isEmpty) {
@@ -187,8 +151,9 @@ class _ConnectionsState extends State<Connections> {
             return;
           }
 
+
           _establishConnection(
-              _connections[i ~/ 2], _pinController.text);
+              _connections[i], _pinController.text);
         });
   }
 
@@ -245,6 +210,7 @@ class _ConnectionsState extends State<Connections> {
 
 
   _establishConnection(String connection, String pin) async {
+    print(connection);
     BuildContext? dialogContext;
 
     dismissDialog() {
@@ -303,17 +269,23 @@ class _ConnectionsState extends State<Connections> {
         return;
       }
 
-      var response = await http.get(
+      var req = await http.get(
           Uri.parse("http://$connection:${settings.port}/connect"),
           headers: {HttpHeaders.authorizationHeader: pin});
 
-      if (response.statusCode == 200 && response.body.contains("true")) {
+      if(req.body.contains("true")) {
         dismissDialog();
-        _showPage(CommandPage(ip: connection, pin: pin));
+        _showPage(CommandPage(
+            ip: connection,
+            pin: pin
+        ));
+        return;
       } else {
         dismissDialog();
         _showErrorDialog("Connection failed.");
+        return;
       }
+
     } catch (e) {
       dismissDialog();
       _showErrorDialog("Connection failed.");
