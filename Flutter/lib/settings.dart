@@ -1,15 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'connection.dart';
 import 'main.dart';
 
 class Settings {
   late final String name;
-  var port;
+  var port = 8000;
 
   Settings({required this.name});
 
@@ -49,8 +47,9 @@ class Settings {
 
 class SettingsPage extends StatefulWidget {
   final String name;
+  final bool commandPage = false;
 
-  const SettingsPage({super.key, required this.name});
+  const SettingsPage({super.key, required this.name, commandPage});
 
   @override
   State<StatefulWidget> createState() => _SettingsState();
@@ -68,10 +67,12 @@ class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(top: 65, left: 16, right: 16),
-      child: content,
-    ));
+        backgroundColor: const Color.fromRGBO(24, 24, 24, 1.0),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 65, left: 16, right: 16),
+            child: content,
+          ));
+
   }
 
   Future<void> fetchSettings() async {

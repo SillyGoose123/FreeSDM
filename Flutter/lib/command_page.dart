@@ -49,6 +49,10 @@ class CommandPageState extends State<CommandPage> {
               label: "YouTube",
               icon: FreeSDMIcon.youtube,
               activeIcon: FreeSDMIcon.youtubeActive),
+          const BottomNavigationBarItem(
+              label: "Settings",
+              icon: Icon(CupertinoIcons.settings),
+          ),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
@@ -77,6 +81,9 @@ class CommandPageState extends State<CommandPage> {
 
       case 3:
         return _buildYouTube();
+        
+      case 4:
+        return SettingsPage(name: widget.ip, commandPage: true);
 
       default:
         return _buildStandard();
