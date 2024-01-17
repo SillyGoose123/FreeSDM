@@ -105,7 +105,7 @@ class CommandPageState extends State<CommandPage> {
       Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => executeHotkey(PowerPoint.previousSlide),
               icon: const Icon(Icons.arrow_back_ios),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(
@@ -118,7 +118,7 @@ class CommandPageState extends State<CommandPage> {
             ),
             const Spacer(),
             IconButton(
-                onPressed: () {},
+                onPressed: () => executeHotkey(PowerPoint.nextSlide),
                 icon: const Icon(Icons.arrow_forward_ios),
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsets>(
@@ -131,7 +131,7 @@ class CommandPageState extends State<CommandPage> {
           ],
         ),
         Padding(padding: const EdgeInsets.only(top: 65), child: IconButton(
-          onPressed: () {},
+          onPressed: () => executeHotkey(PowerPoint.startPresentation),
           icon: const Icon(Icons.start_rounded),
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(
@@ -192,7 +192,7 @@ class CommandPageState extends State<CommandPage> {
     }
   }
 
-  void excetuteHotkey(Command command) async {
+  void executeHotkey(Command command) async {
     print("hotkey: ${command.toString()}");
   }
 }
