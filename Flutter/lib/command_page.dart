@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:freesdm/commands.dart';
 import 'package:freesdm/freesdm_icons.dart';
+import 'package:freesdm/main.dart';
 import 'package:freesdm/settings_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:freesdm/settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'mouse_controller.dart';
 
 class CommandPage extends StatefulWidget {
   final String ip;
@@ -151,7 +155,65 @@ class CommandPageState extends State<CommandPage> {
   }
 
   Widget _buildYouTube() {
-    return const Text("YouTube");
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        MouseController(ip: widget.ip, pin: widget.pin),
+        Row(
+          children: [
+            IconButton(
+              onPressed: () => executeHotkey(Youtube.skipBack),
+              icon: const Icon(Icons.arrow_back_ios),
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.only(
+                        top: 25, bottom: 25, left: 25, right: 25)),
+                iconSize: MaterialStateProperty.all<double>(50),
+                backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.blueAccent),
+              ),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () => executeHotkey(Youtube.playPause),
+              icon: const Icon(CupertinoIcons.playpause),
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.only(
+                        top: 25, bottom: 25, left: 25, right: 25)),
+                iconSize: MaterialStateProperty.all<double>(50),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+              ),
+            ),
+            const Spacer(),
+            IconButton(
+                onPressed: () => executeHotkey(Youtube.skip),
+                icon: const Icon(Icons.arrow_forward_ios),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.only(
+                          top: 25, bottom: 25, left: 25, right: 25)),
+                  iconSize: MaterialStateProperty.all<double>(50),
+                  backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.blueAccent),
+                )),
+          ],
+        ),
+        Padding(padding: const EdgeInsets.all(25), child: IconButton(
+          onPressed: () => executeHotkey(Youtube.fullscreen),
+          icon: const Icon(Icons.fullscreen),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.only(
+                    top: 25, bottom: 25, left: 25, right: 25)
+            ),
+            iconSize: MaterialStateProperty.all<double>(50),
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+          ),
+        )),
+      ],
+    );
   }
 
   _checkConnection() async {
@@ -166,13 +228,6 @@ class CommandPageState extends State<CommandPage> {
     if (mounted) {
       Navigator.pop(context);
     }
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('_context', context));
-    properties.add(DiagnosticsProperty('_context', context));
   }
 
   makeReq(String ip, String route) async {
@@ -192,7 +247,28 @@ class CommandPageState extends State<CommandPage> {
     }
   }
 
+
   void executeHotkey(Command command) async {
-    print("hotkey: ${command.toString()}");
+    command.loadKey();
+
+    try {
+      postRequest(widget.ip, widget.pin, "/hotkey", command.hotkey.toString());
+    } catch (e) {
+      showErrorDialog(context, "Failed to send hotkey ${command.name}");
+    }
+  }
+
+}
+
+
+void postRequest(String ip, String pin, String route, String body) async {
+  final Settings settings = await Settings(name: ip).loadData();
+  final response = await http.post(Uri.parse("http://${ip}:${settings.port}$route"), headers: {
+    HttpHeaders.authorizationHeader: pin
+  }, body: body
+  ).timeout(const Duration(seconds: 5));
+
+  if (response.statusCode != 200 || !response.body.contains("true")) {
+    throw "Failed to send hotkey $body";
   }
 }

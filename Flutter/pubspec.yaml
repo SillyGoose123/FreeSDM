@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^2.0.9
   loading_animation_widget: ^1.2.0+4
   package_info_plus: ^5.0.1
+  flutter_joystick: ^0.0.4
 
 dev_dependencies:
   flutter_test:

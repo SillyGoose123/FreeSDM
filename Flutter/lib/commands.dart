@@ -10,9 +10,28 @@ class PowerPoint {
   static Command startPresentation = Command(name: "startPresentation");
 }
 
+class Youtube {
+  static Command skip = Command(name: "skip");
+  static Command skipBack = Command(name: "skipBack");
+  static Command fullscreen = Command(name: "fullscreen");
+  static Command playPause = Command(name: "playPause");
+  static Command mute = Command(name: "mute");
+
+}
+
+class Mouse {
+  static Command leftClick = Command(name: "leftClick");
+  static Command rightClick = Command(name: "rightClick");
+  static Command middleClick = Command(name: "middleClick");
+  static Command up = Command(name: "up");
+  static Command down = Command(name: "down");
+  static Command left = Command(name: "left");
+  static Command right = Command(name: "right");
+}
+
 class Command {
   final String name;
-  late String? hotkey;
+  String? hotkey = null;
 
   Command({required this.name});
 
@@ -41,15 +60,30 @@ class Command {
 
   @override
   String toString() {
-    return "Name: $name Hotkey: $hotkey";
+    var string = "";
+
+    string += "name: $name Hotkey: ";
+
+    if(hotkey != null) {
+      string += hotkey!;
+    } else {
+      string += "null";
+    }
+
+    return string;
   }
 }
 
 class _StandardCommand {
   final Map<String, String> standards = {
-    "nextSlide": "arrow_right",
-    "previousSlide": "arrow_left",
-    "startPresentation": "F5"
+    "nextSlide": "right",
+    "previousSlide": "left",
+    "startPresentation": "F5",
+    "skip": "right",
+    "skipBack": "left",
+    "fullscreen": "f",
+    "playPause": "k",
+    "mute" : "m"
   };
   final String name;
 

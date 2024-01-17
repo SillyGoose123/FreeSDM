@@ -13,8 +13,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e861bb6-b396-4e48-959e-4ddfb77e3eba" name="Changes" comment="code clean up and mouse clicks &amp;&amp; scroll">
+      <change afterPath="$PROJECT_DIR$/../Flutter/lib/mouse_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/command_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/lib/commands.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/lib/commands.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Flutter/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mouse.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/mouse.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,6 +182,7 @@
       <workItem from="1705229115383" duration="10081000" />
       <workItem from="1705339060812" duration="1678000" />
       <workItem from="1705411769648" duration="55000" />
+      <workItem from="1705505633108" duration="3888000" />
     </task>
     <task id="LOCAL-00001" summary="basic app + basic rust api with rocket.rs">
       <option name="closed" value="true" />

@@ -69,3 +69,64 @@ fn send_click(body: String, ip: &String) -> String {
     println!("Click {} from {}", &body.green() , &ip.green());
     "true".to_string()
 }
+
+#[post("/mouse")]
+async fn move_mouse(raw: Bytes, req: HttpRequest) -> String {
+    //get ip for logging
+    let ip = req.connection_info().peer_addr().unwrap_or("").to_string().replace("127.0.0.1", "localhost");
+
+    match String::from_utf8(raw.to_vec()) {
+        Ok(body) => {
+            let split = body.split(":").collect::<Vec<&str>>();
+
+            if split.len() != 2 {
+                println!("Mouse {} from {}","failed".red(), &ip.green());
+                return "false\ninvalid mouse string".to_string();
+            }
+
+            let x = split[1].trim().parse::<i32>();
+
+            return match x {
+                Ok(x) => {
+                    let mut enigo = Enigo::new();
+                    match split[0].trim().to_lowercase().as_str() {
+                        "up" => {
+                            enigo.mouse_move_relative(0, -x);
+                            println!("Mouse {} from {}", &body.green() , &ip.green());
+                            "true".to_string()
+                        },
+                        "down" => {
+                            enigo.mouse_move_relative(0, x);
+                            println!("Mouse {} from {}", &body.green() , &ip.green());
+                            "true".to_string()
+                        },
+                        "left" => {
+                            enigo.mouse_move_relative(-x, 0);
+                            println!("Mouse {} from {}", &body.green() , &ip.green());
+                            "true".to_string()
+                        },
+                        "right" => {
+                            enigo.mouse_move_relative(x, 0);
+                            println!("Mouse {} from {}", &body.green() , &ip.green());
+                            "true".to_string()
+                        },
+                        _ => {
+                            println!("Mouse {} from {}","failed".red(), &ip.green());
+                            "false\ninvalid mouse string".to_string()
+                        }
+                    }
+                },
+                Err(_) => {
+                    println!("Mouse {} from {}","failed".red(), &ip.green());
+                    "false\ncouldn't parse int.".to_string()
+                }
+            }
+
+        }
+        Err(_) => {
+            println!("Mouse {} from {}","failed".red(), &ip.green());
+            "false\ninvalid utf8 string".to_string()
+        }
+    }
+}
+

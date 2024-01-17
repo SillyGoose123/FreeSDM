@@ -9,7 +9,7 @@ use colored::Colorize;
 use console::style;
 
 use crate::keys::{hotkey, text};
-use crate::mouse::{click, scroll};
+use crate::mouse::{click, move_mouse, scroll};
 use crate::utils::{ask, print_frame};
 
 mod utils;
@@ -70,6 +70,9 @@ fn unauthorized(cfg: &mut web::ServiceConfig) {
                 HttpResponse::Unauthorized().body("Unauthorized")
             }))
             .route("/click", post().to(|| async {
+                HttpResponse::Unauthorized().body("Unauthorized")
+            }))
+            .route("/mouse", post().to(|| async {
                 HttpResponse::Unauthorized().body("Unauthorized")
             }))
     );
@@ -169,6 +172,7 @@ async fn main() -> std::io::Result<()> {
                             .service(text)
                             .service(scroll)
                             .service(click)
+                            .service(move_mouse)
                     )
 
                     .configure(unauthorized)
