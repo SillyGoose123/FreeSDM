@@ -159,7 +159,6 @@ class CommandPageState extends State<CommandPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
-        MouseController(ip: widget.ip, pin: widget.pin),
         Row(
           children: [
             IconButton(
@@ -212,6 +211,7 @@ class CommandPageState extends State<CommandPage> {
             backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
           ),
         )),
+        MouseController(ip: widget.ip, pin: widget.pin),
       ],
     );
   }

@@ -92,6 +92,7 @@ class _SettingsState extends State<SettingsPage> {
                   keyboardType: TextInputType.number,
                   controller: portController,
                 ),
+
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

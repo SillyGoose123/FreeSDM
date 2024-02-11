@@ -64,6 +64,8 @@ fn send_click(body: String, ip: &String) -> String {
             println!("Click {} from {}", "failed".red() , &ip.green());
             return "false\ninvalid click type".to_string();
         }
+
+
     };
 
     println!("Click {} from {}", &body.green() , &ip.green());

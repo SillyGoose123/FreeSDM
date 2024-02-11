@@ -1,13 +1,10 @@
-import 'dart:async';
 import 'dart:core';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'main.dart';
 
 class Settings {
   late final String name;
   var port = 8000;
+
 
   Settings({required this.name});
 
@@ -48,13 +45,10 @@ class Settings {
   }
 
   void loadStandard() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey("Standard")) {
-      createStandard();
-    }
-
-    var data = prefs.getStringList("Standard")!;
-    port = int.parse(data[0]);
+    String name = this.name;
+    this.name = "Standard";
+    await loadData();
+    this.name = name;
   }
 
   void delete() async {
